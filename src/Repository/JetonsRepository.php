@@ -19,6 +19,28 @@ class JetonsRepository extends ServiceEntityRepository
         parent::__construct($registry, Jetons::class);
     }
 
+    public function findByTypeRang()
+    {
+        $jetons = $this->createQueryBuilder('j')
+            ->orderBy('j.type', 'ASC')
+            ->orderBy('j.valeur', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        $tJetons= [];
+        $tJetons['type1']= [];
+        $tJetons['type2']= [];
+        $tJetons['type3']= [];
+        $tJetons['type4']= [];
+        $tJetons['type5']= [];
+        $tJetons['type6']= [];
+
+        foreach($jetons as $jeton){
+            $tJetons[$jeton->getType()][] = $jeton->getId();
+        }
+        return $tJetons;
+    }
+
 //    /**
 //     * @return Jetons[] Returns an array of Jetons objects
 //     */

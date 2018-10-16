@@ -19,72 +19,72 @@ class Cartes
     /**
      * @ORM\Column(type="text")
      */
-    private $carte_img;
+    private $img;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $carte_rang;
+    private $rang;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $carte_nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $carte_qte;
+    private $qte;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCarteImg(): ?string
+    public function getImg(): ?string
     {
-        return $this->carte_img;
+        return $this->img;
     }
 
-    public function setCarteImg(string $carte_img): self
+    public function setImg(string $img): self
     {
-        $this->carte_img = $carte_img;
+        $this->img = $img;
 
         return $this;
     }
 
-    public function getCarteRang(): ?int
+    public function getRang(): ?int
     {
-        return $this->carte_rang;
+        return $this->rang;
     }
 
-    public function setCarteRang(int $carte_rang): self
+    public function setRang(int $rang): self
     {
-        $this->carte_rang = $carte_rang;
+        $this->rang = $rang;
 
         return $this;
     }
 
-    public function getCarteNom(): ?string
+    public function getNom(): ?string
     {
-        return $this->carte_nom;
+        return $this->nom;
     }
 
-    public function setCarteNom(string $carte_nom): self
+    public function setNom(string $nom): self
     {
-        $this->carte_nom = $carte_nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getCarteQte(): ?int
+    public function getQte(): ?int
     {
-        return $this->carte_qte;
+        return $this->qte;
     }
 
-    public function setCarteQte(int $carte_qte): self
+    public function setQte(int $qte): self
     {
-        $this->carte_qte = $carte_qte;
+        $this->qte = $qte;
 
         return $this;
     }

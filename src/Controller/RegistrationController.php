@@ -2,41 +2,50 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateurs;
-use App\Form\UtilisateurType;
+use App\Form\UserType;
+use App\Entity\User;
+use App\Events;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
-class RegistrationController extends Controller {
-
+class RegistrationController extends Controller
+{
     /**
-     * @Route("/register")
+     * @Route("/register", name="user_registration")
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
-        // 1) build the form
-        $user = new Utilisateurs();
-        $form = $this->createForm(UtilisateurType::class, $user);
-        // 2) handle the submit (will only happen on POST)
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $passwordEncoder->encodePassword($user, $user->getpassword());
-            $user->setPassword($password);
-            //on active par défaut
-            $user->setIsActive(true);
-            //$user->addRole("ROLE_ADMIN");
-            // 4) save the User!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-            $this->addFlash('success', 'Votre compte à bien été enregistré.');
-            //return $this->redirectToRoute('login');
-        }
-        return $this->render('Connexion/register.html.twig', ['form' => $form->createView(), 'mainNavRegistration' => true, 'title' => 'Inscription']);
-    }
 
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+
+            // Par defaut l'utilisateur aura toujours le rôle ROLE_USER
+            $user->setRoles(['ROLE_USER']);
+
+            // On enregistre l'utilisateur dans la base
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            //On déclenche l'event
+            $event = new GenericEvent($user);
+            $eventDispatcher->dispatch(Events::USER_REGISTERED, $event);
+
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $this->render(
+            'register.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 }

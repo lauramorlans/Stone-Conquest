@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{ form_start(form) }}
+    {{ form_row(form.from) }}
+    {{ form_row(form.subject) }}
+    {{ form_row(form.message) }}
+
+    <input type="submit" value="Envoyer" />
+    {{ form_end(form) }}
+
+{% endblock %}

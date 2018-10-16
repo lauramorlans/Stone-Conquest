@@ -2,35 +2,38 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends Controller {
-
+class SecurityController extends AbstractController
+{
     /**
-     * @Route("/login", name="login")
+     * @Route("/login", name="security_login")
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils) {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-        //
-        $form = $this->get('form.factory')
-            ->createNamedBuilder(null)
-            ->add('_username', null, ['label' => 'Email'])
-            ->add('_password', \Symfony\Component\Form\Extension\Core\Type\PasswordType::class, ['label' => 'Mot de passe'])
-            ->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' => 'Ok', 'attr' => ['class' => 'btn-primary btn-block']])
-            ->getForm();
-        return $this->render('Connexion/login.html.twig', [
-            'mainNavLogin' => true, 'title' => 'Connexion',
-            //
-            'form' => $form->createView(),
-            'last_username' => $lastUsername,
-            'error' => $error,
+    public function login(AuthenticationUtils $helper): Response
+    {
+        return $this->render('Security/login.html.twig', [
+            // dernier username saisi (si il y en a un)
+            'last_username' => $helper->getLastUsername(),
+            // La derniere erreur de connexion (si il y en a une)
+            'error' => $helper->getLastAuthenticationError(),
         ]);
     }
+
+    /**
+     * La route pour se deconnecter.
+     *
+     * Mais celle ci ne doit jamais être executé car symfony l'interceptera avant.
+     *
+     *
+     * @Route("/logout", name="security_logout")
+     */
+    public function logout(): void
+    {
+        throw new \Exception('This should never be reached!');
+    }
+
 
 }

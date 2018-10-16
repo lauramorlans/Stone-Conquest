@@ -19,89 +19,89 @@ class Jetons
     /**
      * @ORM\Column(type="text")
      */
-    private $jeton_img;
+    private $img;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $jeton_rang;
+    private $rang;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $jeton_nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $jeton_qte;
+    private $qte;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $jeton_score;
+    private $score;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getJetonImg(): ?string
+    public function getImg(): ?string
     {
-        return $this->jeton_img;
+        return $this->img;
     }
 
-    public function setJetonImg(string $jeton_img): self
+    public function setImg(string $img): self
     {
-        $this->jeton_img = $jeton_img;
+        $this->img = $img;
 
         return $this;
     }
 
-    public function getJetonRang(): ?int
+    public function getRang(): ?int
     {
-        return $this->jeton_rang;
+        return $this->rang;
     }
 
-    public function setJetonRang(int $jeton_rang): self
+    public function setRang(int $rang): self
     {
-        $this->jeton_rang = $jeton_rang;
+        $this->rang = $rang;
 
         return $this;
     }
 
-    public function getJetonNom(): ?string
+    public function getNom(): ?string
     {
-        return $this->jeton_nom;
+        return $this->nom;
     }
 
-    public function setJetonNom(string $jeton_nom): self
+    public function setNom(string $nom): self
     {
-        $this->jeton_nom = $jeton_nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getJetonQte(): ?int
+    public function getQte(): ?int
     {
-        return $this->jeton_qte;
+        return $this->qte;
     }
 
-    public function setJetonQte(int $jeton_qte): self
+    public function setQte(int $qte): self
     {
-        $this->jeton_qte = $jeton_qte;
+        $this->qte = $qte;
 
         return $this;
     }
 
-    public function getJetonScore(): ?int
+    public function getScore(): ?int
     {
-        return $this->jeton_score;
+        return $this->score;
     }
 
-    public function setJetonScore(int $jeton_score): self
+    public function setScore(int $score): self
     {
-        $this->jeton_score = $jeton_score;
+        $this->score = $score;
 
         return $this;
     }

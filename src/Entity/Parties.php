@@ -107,13 +107,13 @@ class Parties
     private $point_j2;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateurs", inversedBy="joueur2")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="joueur2")
      * @ORM\JoinColumn(nullable=false)
      */
     private $joueur1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateurs", inversedBy="joueur2")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="joueur2")
      * @ORM\JoinColumn(nullable=false)
      */
     private $joueur2;
@@ -121,6 +121,11 @@ class Parties
     /**
      * @ORM\Column(type="integer")
      */
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getPartieDate(): ?\DateTimeInterface
     {
@@ -146,12 +151,12 @@ class Parties
         return $this;
     }
 
-    public function getPartieTerrain(): ?string
+    public function getPartieTerrain()
     {
         return $this->partie_terrain;
     }
 
-    public function setPartieTerrain(string $partie_terrain): self
+    public function setPartieTerrain($partie_terrain): self
     {
         $this->partie_terrain = $partie_terrain;
 
@@ -242,24 +247,24 @@ class Parties
         return $this;
     }
 
-    public function getJetonsJ1(): ?string
+    public function getJetonsJ1()
     {
         return $this->jetons_j1;
     }
 
-    public function setJetonsJ1(string $jetons_j1): self
+    public function setJetonsJ1($jetons_j1): self
     {
         $this->jetons_j1 = $jetons_j1;
 
         return $this;
     }
 
-    public function getJetonsJ2(): ?string
+    public function getJetonsJ2()
     {
         return $this->jetons_j2;
     }
 
-    public function setJetonsJ2(string $jetons_j2): self
+    public function setJetonsJ2($jetons_j2): self
     {
         $this->jetons_j2 = $jetons_j2;
 
@@ -338,24 +343,24 @@ class Parties
         return $this;
     }
 
-    public function getJoueur1(): ?Utilisateurs
+    public function getJoueur1(): ?User
     {
         return $this->joueur1;
     }
 
-    public function setJoueur1(?Utilisateurs $joueur1): self
+    public function setJoueur1(?User $joueur1): self
     {
         $this->joueur1 = $joueur1;
 
         return $this;
     }
 
-    public function getJoueur2(): ?Utilisateurs
+    public function getJoueur2(): ?User
     {
         return $this->joueur2;
     }
 
-    public function setJoueur2(?Utilisateurs $joueur2): self
+    public function setJoueur2(?User $joueur2): self
     {
         $this->joueur2 = $joueur2;
 

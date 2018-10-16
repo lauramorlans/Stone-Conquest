@@ -6,13 +6,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="user")
+ * @UniqueEntity(fields="email", message="Email déjà pris")
+ * @UniqueEntity(fields="username", message="Username déjà pris")
  */
-class Utilisateurs
+
+class User implements UserInterface, \Serializable
 {
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,29 +28,53 @@ class Utilisateurs
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
-    private $utilisateur_nom;
+    private $fullname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
      */
-    private $utilisateur_password;
+
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
-    private $utilisateur_pseudo;
+
+    private $email;
 
     /**
-     * @ORM\Column(type="text")
+     * @var string
+     *
+     * @ORM\Column(type="string", length=64)
      */
-    private $utilisateur_mail;
+    private $password;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+
+    private $roles = [];
+
+    /**
+     * @var array
      * @ORM\Column(type="integer")
      */
-    private $utilisateur_score;
+
+    private $score = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Parties", mappedBy="joueur1")
@@ -53,13 +85,6 @@ class Utilisateurs
      * @ORM\OneToMany(targetEntity="App\Entity\Parties", mappedBy="joueur2")
      */
     private $joueur2;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="string")
-     */
-    private $rang = [];
 
     public function __construct()
     {
@@ -72,62 +97,58 @@ class Utilisateurs
         return $this->id;
     }
 
-    public function getUtilisateurNom(): ?string
+    public function getFullname(): ?string
     {
-        return $this->utilisateur_nom;
+        return $this->fullname;
     }
 
-    public function setUtilisateurNom(string $utilisateur_nom): self
+    public function setFullname(string $fullname): void
     {
-        $this->utilisateur_nom = $utilisateur_nom;
+        $this->fullname = $fullname;
 
-        return $this;
     }
 
-    public function getUtilisateurPassword(): ?string
+    public function getUsername(): ?string
     {
-        return $this->utilisateur_password;
+        return $this->username;
     }
 
-    public function setUtilisateurPassword(string $utilisateur_password): self
+    public function setUsername(string $username): void
     {
-        $this->utilisateur_password = $utilisateur_password;
+        $this->username = $username;
 
-        return $this;
     }
 
-    public function getUtilisateurPseudo(): ?string
+    public function getEmail(): ?string
     {
-        return $this->utilisateur_pseudo;
+        return $this->email;
     }
 
-    public function setUtilisateurPseudo(string $utilisateur_pseudo): self
+    public function setEmail(string $email): void
     {
-        $this->utilisateur_pseudo = $utilisateur_pseudo;
+        $this->email = $email;
 
-        return $this;
     }
 
-    public function getUtilisateurMail(): ?string
+    public function getPassword(): ?string
     {
-        return $this->utilisateur_mail;
+        return $this->password;
     }
 
-    public function setUtilisateurMail(string $utilisateur_mail): self
+    public function setPassword(string $password): void
     {
-        $this->utilisateur_mail = $utilisateur_mail;
+        $this->password = $password;
 
-        return $this;
     }
 
-    public function getUtilisateurScore(): ?int
+    public function getScore(): ?int
     {
-        return $this->utilisateur_score;
+        return $this->score;
     }
 
-    public function setUtilisateurScore(int $utilisateur_score): self
+    public function setScore(int $score): self
     {
-        $this->utilisateur_score = $utilisateur_score;
+        $this->score = $score;
 
         return $this;
     }
@@ -135,21 +156,21 @@ class Utilisateurs
     /**
      * Retourne les rôles de l'user
      */
-    public function getRang(): array
+    public function getRoles(): array
     {
-        $rang = $this->rang;
+        $roles = $this->roles;
 
         // Afin d'être sûr qu'un user a toujours au moins 1 rôle
-        if (empty($rang)) {
-            $rang[] = 'ROLE_USER';
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
         }
 
-        return array_unique($rang);
+        return array_unique($roles);
     }
 
-    public function setRang(array $rang): void
+    public function setRoles(array $roles): void
     {
-        $this->rang = $rang;
+        $this->roles = $roles;
     }
 
     /**
@@ -214,17 +235,6 @@ class Utilisateurs
         return $this;
     }
 
-    public function getUtilisateurRang(): ?bool
-    {
-        return $this->utilisateur_rang;
-    }
-
-    public function setUtilisateurRang(bool $utilisateur_rang): self
-    {
-        $this->utilisateur_rang = $utilisateur_rang;
-
-        return $this;
-    }
 
     /**
      * Retour le salt qui a servi à coder le mot de passe
@@ -257,7 +267,7 @@ class Utilisateurs
      */
     public function serialize(): string
     {
-        return serialize([$this->id, $this->utilisateur_pseudo, $this->utilisateur_password]);
+        return serialize([$this->id, $this->username, $this->password]);
     }
 
     /**
@@ -265,6 +275,6 @@ class Utilisateurs
      */
     public function unserialize($serialized): void
     {
-        [$this->id, $this->utilisateur_pseudo, $this->utilisateur_password] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
