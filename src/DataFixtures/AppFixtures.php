@@ -32,24 +32,22 @@ class AppFixtures extends Fixture
             $this->addReference($username, $user);
         }
 
-        foreach ($this->getJetonData() as [$img, $rang, $nom, $qte, $score]) {
+        foreach ($this->getJetonData() as [$img, $rang, $nom, $score]) {
             $jeton = new Jetons();
             $jeton->setImg($img);
             $jeton->setRang($rang);
             $jeton->setNom($nom);
-            $jeton->setQte($qte);
             $jeton->setScore($score);
 
             $manager->persist($jeton);
             $this->setReference($nom, $jeton);
         }
 
-        foreach ($this->getCarteData() as [$img, $rang, $nom, $qte]) {
+        foreach ($this->getCarteData() as [$img, $rang, $nom]) {
             $carte = new Cartes();
             $carte->setImg($img);
             $carte->setRang($rang);
             $carte->setNom($nom);
-            $carte->setQte($qte);
 
             $manager->persist($carte);
             $this->setReference($nom, $carte);
@@ -60,14 +58,62 @@ class AppFixtures extends Fixture
     private function getCarteData(): array
     {
         return [
-            // $jetonData = [$img, $rang, $nom, $qte];
-            ['baies_carte.png', 1, 'Baies', 10],
-            ['poisson_carte.png', 2, 'Poisson', 8],
-            ['outils_carte.png', 3, 'Outils', 8],
-            ['armes_carte.png', 4, 'Armes', 6],
-            ['viande_carte.png', 5, 'Viande', 6],
-            ['feu_carte.png', 6, 'Feu', 6],
-            ['mammouth_carte.png', 7, 'Mammouth', 11],
+            // $jetonData = [$img, $rang, $nom];
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['baies_carte.png', 1, 'Baies'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['poisson_carte.png', 2, 'Poisson'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['outils_carte.png', 3, 'Outils'],
+            ['armes_carte.png', 4, 'Armes'],
+            ['armes_carte.png', 4, 'Armes'],
+            ['armes_carte.png', 4, 'Armes'],
+            ['armes_carte.png', 4, 'Armes'],
+            ['armes_carte.png', 4, 'Armes'],
+            ['armes_carte.png', 4, 'Armes'],
+            ['viande_carte.png', 5, 'Viande'],
+            ['viande_carte.png', 5, 'Viande'],
+            ['viande_carte.png', 5, 'Viande'],
+            ['viande_carte.png', 5, 'Viande'],
+            ['viande_carte.png', 5, 'Viande'],
+            ['viande_carte.png', 5, 'Viande'],
+            ['feu_carte.png', 6, 'Feu'],
+            ['feu_carte.png', 6, 'Feu'],
+            ['feu_carte.png', 6, 'Feu'],
+            ['feu_carte.png', 6, 'Feu'],
+            ['feu_carte.png', 6, 'Feu'],
+            ['feu_carte.png', 6, 'Feu'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
+            ['mammouth_carte.png', 7, 'Mammouth'],
         ];
     }
 
@@ -84,35 +130,67 @@ class AppFixtures extends Fixture
     private function getJetonData(): array
     {
         return [
-            // $jetonData = [$img, $rang, $nom, $qte, $score];
-            ['baies_jeton.png', 1, 'Baies', 6, 1],
-            ['baies_jeton.png', 1, 'Baies', 1, 2],
-            ['baies_jeton.png', 1, 'Baies', 1, 3],
-            ['baies_jeton.png', 1, 'Baies', 1, 4],
-            ['poisson_jeton.png', 2, 'Poisson', 2, 1],
-            ['poisson_jeton.png', 2, 'Poisson', 2, 2],
-            ['poisson_jeton.png', 2, 'Poisson', 2, 3],
-            ['poisson_jeton.png', 2, 'Poisson', 1, 5],
-            ['outils_jeton.png', 3, 'Outils', 2, 1],
-            ['outils_jeton.png', 3, 'Outils', 2, 2],
-            ['outils_jeton.png', 3, 'Outils', 2, 3],
-            ['outils_jeton.png', 3, 'Outils', 1, 5],
-            ['armes_jeton.png', 4, 'Armes', 3, 5],
-            ['armes_jeton.png', 4, 'Armes', 2, 6],
-            ['viande_jeton.png', 5, 'Viande', 3, 5],
-            ['viande_jeton.png', 5, 'Viande', 2, 7],
-            ['feu_jeton.png', 6, 'Feu', 6, 5],
-            ['mammouth_jeton.png', 7, 'Mammouth', 1, 0],
-            ['territoire_jeton.png', 8, 'Territoire', 3, 0],
-            ['bonus3_jeton.png', 9, 'Bonus 3', 2, 1],
-            ['bonus3_jeton.png', 9, 'Bonus 3', 3, 2],
-            ['bonus3_jeton.png', 9, 'Bonus 3', 2, 3],
-            ['bonus4_jeton.png', 10, 'Bonus 4', 2, 4],
-            ['bonus4_jeton.png', 10, 'Bonus 4', 2, 5],
-            ['bonus4_jeton.png', 10, 'Bonus 4', 2, 6],
-            ['bonus5_jeton.png', 11, 'Bonus 5', 2, 8],
-            ['bonus5_jeton.png', 11, 'Bonus 5', 1, 9],
-            ['bonus5_jeton.png', 11, 'Bonus 5', 2, 10],
+            // $jetonData = [$img, $rang, $nom, $score];
+            ['baies_jeton.png', 1, 'Baies', 1],
+            ['baies_jeton.png', 1, 'Baies', 1],
+            ['baies_jeton.png', 1, 'Baies', 1],
+            ['baies_jeton.png', 1, 'Baies', 1],
+            ['baies_jeton.png', 1, 'Baies', 1],
+            ['baies_jeton.png', 1, 'Baies', 1],
+            ['baies_jeton.png', 1, 'Baies', 2],
+            ['baies_jeton.png', 1, 'Baies', 3],
+            ['baies_jeton.png', 1, 'Baies', 4],
+            ['poisson_jeton.png', 2, 'Poisson', 1],
+            ['poisson_jeton.png', 2, 'Poisson', 1],
+            ['poisson_jeton.png', 2, 'Poisson', 2],
+            ['poisson_jeton.png', 2, 'Poisson', 2],
+            ['poisson_jeton.png', 2, 'Poisson', 3],
+            ['poisson_jeton.png', 2, 'Poisson', 3],
+            ['poisson_jeton.png', 2, 'Poisson', 5],
+            ['outils_jeton.png', 3, 'Outils', 1],
+            ['outils_jeton.png', 3, 'Outils', 1],
+            ['outils_jeton.png', 3, 'Outils', 2],
+            ['outils_jeton.png', 3, 'Outils', 2],
+            ['outils_jeton.png', 3, 'Outils', 3],
+            ['outils_jeton.png', 3, 'Outils', 3],
+            ['outils_jeton.png', 3, 'Outils', 5],
+            ['armes_jeton.png', 4, 'Armes', 5],
+            ['armes_jeton.png', 4, 'Armes', 5],
+            ['armes_jeton.png', 4, 'Armes', 5],
+            ['armes_jeton.png', 4, 'Armes', 5],
+            ['armes_jeton.png', 4, 'Armes', 5],
+            ['viande_jeton.png', 5, 'Viande', 5],
+            ['viande_jeton.png', 5, 'Viande', 5],
+            ['viande_jeton.png', 5, 'Viande', 5],
+            ['viande_jeton.png', 5, 'Viande', 2],
+            ['viande_jeton.png', 5, 'Viande', 2],
+            ['feu_jeton.png', 6, 'Feu', 5],
+            ['feu_jeton.png', 6, 'Feu', 5],
+            ['feu_jeton.png', 6, 'Feu', 5],
+            ['feu_jeton.png', 6, 'Feu', 7],
+            ['feu_jeton.png', 6, 'Feu', 7],
+            ['mammouth_jeton.png', 7, 'Mammouth', 0],
+            ['territoire_jeton.png', 8, 'Territoire', 0],
+            ['territoire_jeton.png', 8, 'Territoire', 0],
+            ['territoire_jeton.png', 8, 'Territoire', 0],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 1],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 1],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 2],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 2],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 2],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 3],
+            ['bonus3_jeton.png', 9, 'Bonus 3', 3],
+            ['bonus4_jeton.png', 10, 'Bonus 4', 4],
+            ['bonus4_jeton.png', 10, 'Bonus 4', 4],
+            ['bonus4_jeton.png', 10, 'Bonus 4', 5],
+            ['bonus4_jeton.png', 10, 'Bonus 4', 5],
+            ['bonus4_jeton.png', 10, 'Bonus 4', 6],
+            ['bonus4_jeton.png', 10, 'Bonus 4', 6],
+            ['bonus5_jeton.png', 11, 'Bonus 5', 8],
+            ['bonus5_jeton.png', 11, 'Bonus 5', 8],
+            ['bonus5_jeton.png', 11, 'Bonus 5', 9],
+            ['bonus5_jeton.png', 11, 'Bonus 5', 10],
+            ['bonus5_jeton.png', 11, 'Bonus 5', 10],
         ];
     }
 

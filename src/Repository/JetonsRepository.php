@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Jetons;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,26 +20,43 @@ class JetonsRepository extends ServiceEntityRepository
         parent::__construct($registry, Jetons::class);
     }
 
+    public function findByArrayId() {
+        return $this->createQueryBuilder('jj')
+            ->from($this->getClassName(), 'j', 'jj.id')
+            ->orderBy('j.id', 'ASC')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
+
     public function findByTypeRang()
     {
         $jetons = $this->createQueryBuilder('j')
-            ->orderBy('j.type', 'ASC')
-            ->orderBy('j.valeur', 'DESC')
+            ->orderBy('j.nom', 'ASC')
+            ->orderBy('j.rang', 'DESC')
             ->getQuery()
             ->getResult();
 
         $tJetons= [];
-        $tJetons['type1']= [];
-        $tJetons['type2']= [];
-        $tJetons['type3']= [];
-        $tJetons['type4']= [];
-        $tJetons['type5']= [];
-        $tJetons['type6']= [];
+        $tJetons['Baies']= [];
+        $tJetons['Poisson']= [];
+        $tJetons['Outils']= [];
+        $tJetons['Armes']= [];
+        $tJetons['Viande']= [];
+        $tJetons['Feu']= [];
+        $tJetons['Bonus 3']= [];
+        $tJetons['Bonus 4']= [];
+        $tJetons['Bonus 5']= [];
 
         foreach($jetons as $jeton){
-            $tJetons[$jeton->getType()][] = $jeton->getId();
+            $tJetons[$jeton->getNom()][] = $jeton->getId();
         }
+
+        shuffle($tJetons['Bonus 3']);
+        shuffle($tJetons['Bonus 4']);
+        shuffle($tJetons['Bonus 5']);
+
         return $tJetons;
+
     }
 
 //    /**

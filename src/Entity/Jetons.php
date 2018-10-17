@@ -34,11 +34,6 @@ class Jetons
     /**
      * @ORM\Column(type="integer")
      */
-    private $qte;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $score;
 
     public function getId(): ?int
@@ -78,18 +73,6 @@ class Jetons
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getQte(): ?int
-    {
-        return $this->qte;
-    }
-
-    public function setQte(int $qte): self
-    {
-        $this->qte = $qte;
 
         return $this;
     }

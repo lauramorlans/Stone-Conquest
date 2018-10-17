@@ -163,12 +163,12 @@ class Parties
         return $this;
     }
 
-    public function getPartiePioche(): ?string
+    public function getPartiePioche()
     {
         return $this->partie_pioche;
     }
 
-    public function setPartiePioche(string $partie_pioche): self
+    public function setPartiePioche($partie_pioche): self
     {
         $this->partie_pioche = $partie_pioche;
 
@@ -199,48 +199,48 @@ class Parties
         return $this;
     }
 
-    public function getMainJ1(): ?string
+    public function getMainJ1()
     {
         return $this->main_j1;
     }
 
-    public function setMainJ1(string $main_j1): self
+    public function setMainJ1($main_j1): self
     {
         $this->main_j1 = $main_j1;
 
         return $this;
     }
 
-    public function getMainJ2(): ?string
+    public function getMainJ2()
     {
         return $this->main_j2;
     }
 
-    public function setMainJ2(string $main_j2): self
+    public function setMainJ2($main_j2): self
     {
         $this->main_j2 = $main_j2;
 
         return $this;
     }
 
-    public function getChameauxJ1(): ?int
+    public function getChameauxJ1()
     {
         return $this->chameaux_j1;
     }
 
-    public function setChameauxJ1(int $chameaux_j1): self
+    public function setChameauxJ1($chameaux_j1): self
     {
         $this->chameaux_j1 = $chameaux_j1;
 
         return $this;
     }
 
-    public function getChameauxJ2(): ?int
+    public function getChameauxJ2()
     {
         return $this->chameaux_j2;
     }
 
-    public function setChameauxJ2(int $chameaux_j2): self
+    public function setChameauxJ2($chameaux_j2): self
     {
         $this->chameaux_j2 = $chameaux_j2;
 
@@ -283,12 +283,12 @@ class Parties
         return $this;
     }
 
-    public function getJetonsTerrain(): ?string
+    public function getJetonsTerrain()
     {
         return $this->jetons_terrain;
     }
 
-    public function setJetonsTerrain(string $jetons_terrain): self
+    public function setJetonsTerrain($jetons_terrain): self
     {
         $this->jetons_terrain = $jetons_terrain;
 

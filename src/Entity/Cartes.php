@@ -31,11 +31,6 @@ class Cartes
      */
     private $nom;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $qte;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -77,15 +72,4 @@ class Cartes
         return $this;
     }
 
-    public function getQte(): ?int
-    {
-        return $this->qte;
-    }
-
-    public function setQte(int $qte): self
-    {
-        $this->qte = $qte;
-
-        return $this;
-    }
 }

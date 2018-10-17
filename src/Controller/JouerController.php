@@ -44,56 +44,50 @@ class JouerController extends AbstractController
             $partie->setJetonsJ1([]); //tableau vide, pas encore de jetons au début d'une partie
             $partie->setJetonsJ2([]);
 
-            $cartes = [];
-            $tcarte =[];
-            foreach ($cartes as $carte){
-                for ($i=0; $i<$carte->getQte(); $i++){
-                    $tcarte[$carte->getId().'_'. $i]=$carte;
-                }
-            }
+            $cartes = $cartesRepository->findBy([], ['rang' => 'DESC']);;
 
             $tTerrain = []; //on commence avec 3 chameaux
             for ($i=0; $i<3; $i++){
-                $tTerrain[] = array_pop($tcarte);
+                $tTerrain[] = array_pop($cartes)->getId();
             }
 
             shuffle($cartes);
             for ($i=0; $i<2; $i++){ //on complète avec deux cartes au hasard
-                $tTerrain[] = array_pop($tcarte);
+                $tTerrain[] = array_pop($cartes)->getId();
             }
             $partie->setpartieTerrain($tTerrain);
 
             $tMain=[];
-            $tChameaux = [];
+            $tMammouth = [];
             for ($i=0; $i<5; $i++){ //on distribue 5 cartes à J1
-                $cartes = array_pop($tcarte);
-                if ($cartes->getRang() === 0){
-                    $tChameaux[]=$tcarte;
+                $carte = array_pop($cartes);
+                if ($carte->getRang() === 0){
+                    $tMammouth[]=$carte->getId();
                 } else {
-                    $tMain[] = $tcarte;
+                    $tMain[] = $carte->getId();
                 }
             }
 
             $partie->setMainJ1(($tMain));
-            $partie->setChameauxJ1($tChameaux);
+            $partie->setChameauxJ1($tMammouth);
 
             $tMain=[];
-            $tChameaux = [];
+            $tMammouth = [];
             for ($i=0; $i<5; $i++){ //on distribue 5 cartes à J1
-                $cartes = array_pop($tcarte);
-                if ($cartes->getRang() === 0){
-                    $tChameaux[]=$cartes->getId().'_'. $i;
+                $carte = array_pop($cartes);
+                if ($carte->getRang() === 0){
+                    $tMammouth[]=$carte->getId();
                 } else {
-                    $tMain[] = $cartes->getId().'_'. $i;
+                    $tMain[] = $carte->getId();
                 }
             }
 
             $partie->setMainJ2(($tMain));
-            $partie->setChameauxJ2($tChameaux);
+            $partie->setChameauxJ2($tMammouth);
 
             $tPioche = [];
             for ($i=0; $i<count($cartes); $i++){
-                $tPioche[]= array_pop($tcarte);
+                $tPioche[]= array_pop($cartes)->getId();
             }
             $partie->setPartiePioche($tPioche); //les dernières cartes constituent la pioche
 
