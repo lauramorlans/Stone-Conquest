@@ -36,8 +36,8 @@ class RegistrationNotifySubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getSubject();
 
-        $subject = "Bienvenue";
-        $body = "Bienvenue mon ami.e sur ce tutorial";
+        $subject = "Welcome !";
+        $body = "Welcome to Stone Conquest, thank you for your registration and have fun !";
 
         $message = (new \Swift_Message())
             ->setSubject($subject)

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Cartes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query;
 
 /**
  * @method Cartes|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,15 @@ class CartesRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Cartes::class);
+    }
+
+    public function findByArrayId() {
+        return $this->createQueryBuilder('jj')
+            ->from($this->getClassName(), 'j', 'jj.id')
+            ->orderBy('j.id', 'ASC')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+
     }
 
 //    /**

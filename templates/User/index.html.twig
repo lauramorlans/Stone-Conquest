@@ -5,6 +5,11 @@
     <a href="{{ path('partie_liste')}}">Liste partie</a>
     <a href="{{ path('change_email')}}">Changer email</a>
     <a href="{{ path('change_password')}}">Changer mot de pase</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin')}}">Gérer utilisateurs</a>
+    {% endif %}
+
     <a href="{{ path('security_logout')}}">Déconnexion</a>
 
 {% endblock %}

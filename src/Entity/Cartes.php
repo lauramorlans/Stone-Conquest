@@ -72,4 +72,13 @@ class Cartes
         return $this;
     }
 
+    public function getJson() {
+        return [
+            'id' => $this->getId(),
+            'img' => $this->getImg(),
+            'rang' => $this->getRang(),
+            'nom' => $this->getNom()
+        ];
+    }
+
 }

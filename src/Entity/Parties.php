@@ -22,17 +22,17 @@ class Parties
     private $partie_date;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1)
      */
     private $partie_statue;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="json_array")
      */
     private $partie_terrain;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="json_array")
      */
     private $partie_pioche;
 
@@ -47,42 +47,47 @@ class Parties
     private $partie_defausse;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="json_array")
      */
     private $main_j1;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="json_array")
      */
     private $main_j2;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="json_array")
      */
     private $chameaux_j1;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="json_array")
      */
     private $chameaux_j2;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="json_array")
      */
     private $jetons_j1;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="json_array")
      */
     private $jetons_j2;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $jetons_victoire;
+    private $jetons_victoirej1;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="integer")
+     */
+    private $jetons_victoirej2;
+
+    /**
+     * @ORM\Column(type="json_array")
      */
     private $jetons_terrain;
 
@@ -90,11 +95,6 @@ class Parties
      * @ORM\Column(type="integer")
      */
     private $nb_manche;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $joueur_tour;
 
     /**
      * @ORM\Column(type="integer")
@@ -107,14 +107,12 @@ class Parties
     private $point_j2;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="joueur2")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $joueur1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="joueur2")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $joueur2;
 
@@ -175,12 +173,12 @@ class Parties
         return $this;
     }
 
-    public function getJetonChameaux(): ?int
+    public function getJetonChameaux()
     {
         return $this->jeton_chameaux;
     }
 
-    public function setJetonChameaux(int $jeton_chameaux): self
+    public function setJetonChameaux($jeton_chameaux): self
     {
         $this->jeton_chameaux = $jeton_chameaux;
 
@@ -271,14 +269,26 @@ class Parties
         return $this;
     }
 
-    public function getJetonsVictoire(): ?int
+    public function getJetonsVictoireJ1(): ?int
     {
-        return $this->jetons_victoire;
+        return $this->jetons_victoirej1;
     }
 
-    public function setJetonsVictoire(int $jetons_victoire): self
+    public function setJetonsVictoireJ1(int $jetons_victoirej1): self
     {
-        $this->jetons_victoire = $jetons_victoire;
+        $this->jetons_victoirej1 = $jetons_victoirej1;
+
+        return $this;
+    }
+
+    public function getJetonsVictoireJ2(): ?int
+    {
+        return $this->jetons_victoirej2;
+    }
+
+    public function setJetonsVictoireJ2(int $jetons_victoirej2): self
+    {
+        $this->jetons_victoirej2 = $jetons_victoirej2;
 
         return $this;
     }
@@ -303,18 +313,6 @@ class Parties
     public function setNbManche(int $nb_manche): self
     {
         $this->nb_manche = $nb_manche;
-
-        return $this;
-    }
-
-    public function getJoueurTour(): ?int
-    {
-        return $this->joueur_tour;
-    }
-
-    public function setJoueurTour(int $joueur_tour): self
-    {
-        $this->joueur_tour = $joueur_tour;
 
         return $this;
     }

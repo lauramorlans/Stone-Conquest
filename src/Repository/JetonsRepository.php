@@ -43,17 +43,17 @@ class JetonsRepository extends ServiceEntityRepository
         $tJetons['Armes']= [];
         $tJetons['Viande']= [];
         $tJetons['Feu']= [];
-        $tJetons['Bonus 3']= [];
-        $tJetons['Bonus 4']= [];
-        $tJetons['Bonus 5']= [];
+        $tJetons['Bonus_3']= [];
+        $tJetons['Bonus_4']= [];
+        $tJetons['Bonus_5']= [];
 
         foreach($jetons as $jeton){
             $tJetons[$jeton->getNom()][] = $jeton->getId();
         }
 
-        shuffle($tJetons['Bonus 3']);
-        shuffle($tJetons['Bonus 4']);
-        shuffle($tJetons['Bonus 5']);
+        shuffle($tJetons['Bonus_3']);
+        shuffle($tJetons['Bonus_4']);
+        shuffle($tJetons['Bonus_5']);
 
         return $tJetons;
 

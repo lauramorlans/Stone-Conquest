@@ -1,7 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Ici pour gérer les joueurs
+    <div>
+        {% for user in users %}
+            {{ user.username }}
+            {% if role == 'ROLE_ADMIN' %}
+                Administrateur
+            {% endif %}
+            {% else %}
+                Utilisateur
+            {% endelse %}
+        {% endfor %}
+    </div>
+    <a href="{{ path('user')}}">Retour</a>
     <a href="{{ path('security_logout')}}">Se déconnecter</a>
 
 {% endblock %}

@@ -1,8 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
 {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.plainPassword.first) }}
         {{ form_row(form.plainPassword.second) }}
 
-<button type="submit">Changer mot de passe</button>
+<button type="submit" class="btn btn-primary">Changer mot de passe</button>
 {{ form_end(form) }}
 
+{% endblock %}

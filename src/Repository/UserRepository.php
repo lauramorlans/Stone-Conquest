@@ -23,6 +23,7 @@ class UserRepository extends ServiceEntityRepository
     {
         $this->_em->flush();
     }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

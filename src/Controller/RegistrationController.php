@@ -39,7 +39,6 @@ class RegistrationController extends Controller
             //On déclenche l'event
             $event = new GenericEvent($user);
             $eventDispatcher->dispatch(Events::USER_REGISTERED, $event);
-
             return $this->redirectToRoute('security_login');
         }
 

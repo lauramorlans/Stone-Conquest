@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -70,27 +69,11 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @var array
+     * @var int
      * @ORM\Column(type="integer")
      */
 
     private $score = 0;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parties", mappedBy="joueur1")
-     */
-    private $joueur1;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Parties", mappedBy="joueur2")
-     */
-    private $joueur2;
-
-    public function __construct()
-    {
-        $this->joueur1 = new ArrayCollection();
-        $this->joueur2 = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -203,38 +186,6 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
-    /**
-     * @return Collection|Parties[]
-     */
-    public function getJoueur2(): Collection
-    {
-        return $this->joueur2;
-    }
-
-    public function addJoueur2(Parties $joueur2): self
-    {
-        if (!$this->joueur2->contains($joueur2)) {
-            $this->joueur2[] = $joueur2;
-            $joueur2->setJoueur2($this);
-        }
-
-        return $this;
-    }
-
-    public function removeJoueur2(Parties $joueur2): self
-    {
-        if ($this->joueur2->contains($joueur2)) {
-            $this->joueur2->removeElement($joueur2);
-            // set the owning side to null (unless already changed)
-            if ($joueur2->getJoueur2() === $this) {
-                $joueur2->setJoueur2(null);
-            }
-        }
-
-        return $this;
-    }
-
 
     /**
      * Retour le salt qui a servi à coder le mot de passe
