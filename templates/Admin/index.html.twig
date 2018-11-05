@@ -2,6 +2,20 @@
 
 {% block body %}
     Ici pour gérer les joueurs
+
+    <table border="1px">
+        <tr><th>Pseudo</th><th>Nom</th><th>Mail</th><th>Role</th><th>Modifier</th></tr>
+    {% for joueur in user %}
+        <tr><td>{{ joueur.username }}</td><td>{{ joueur.fullname }}</td><td>{{ joueur.email }}</td><td>{% for role in joueur.roles %}
+                    {% if role == 'ROLE_ADMIN' %}
+                        Administrateur
+                    {% else %}
+                        Utilisateur
+                    {% endif %}
+            <td><a href="{{ path('editUsers', {'id': joueur.id })}}">Modifier</a></td>
+                    <br>{% endfor %}</td></tr>
+    {% endfor %}
+    </table>
     <a href="{{ path('security_logout')}}">Se déconnecter</a>
 
 {% endblock %}
