@@ -188,7 +188,6 @@ class JouerController extends AbstractController
                                 $terrain[] = $cartep->getId(); //piocher et mettre sur le terrain
                             }
                         }
-
                     }
 
                     $partie->setChameauxJ1($enclos);
@@ -219,6 +218,83 @@ class JouerController extends AbstractController
             } else {
                 return $this->json('erreur7', 500);
             }
+        }
+        return $this->json('erreur', 500);
+    }
+
+    /**
+     * @Route("/jouer-action/troquer/{partie}", name="jouer_action_troquer")
+     */
+    public function JouerActionTroquer(
+        EntityManagerInterface $entityManager,
+        CartesRepository $cartesRepository,
+        Request $request,
+        Parties $partie){
+
+        $cterrain = $request->request->get('cterrain');
+        $carteterrain = $cartesRepository->find($cterrain[0]);
+        $cmain = $request->request->get('cmain');
+
+        if ($cmain !== null && is_array($cmain) && count($cmain)>0) {
+            $cartemain = $cartesRepository->find($cmain[0]);
+        } else {
+            $cartemain = null;
+        }
+
+        $cmammouth = $request->request->get('cmammouth');
+
+        if ($cmammouth !== null && is_array($cmammouth) && count($cmammouth)>0){
+            $cartemammouth = $cartesRepository->find($cmammouth[0]);
+        } else {
+            $cartemammouth = null;
+        }
+
+
+        if ($carteterrain !== null) {
+            //je considére que je suis j1.
+            $main = $partie->getMainJ1();
+            $enclos = $partie->getChameauxJ1();
+            $terrain = $partie->GetPartieTerrain();
+
+                $compter = count($cterrain); //on compte le nombre de cartes sélectionnées
+                for ($i=0; $i < $compter ; $i++){
+                    $countmammouth = $cartesRepository->find($cterrain[$i]);
+
+                    if ($countmammouth->getId() > 44){
+                        return $this->json('erreurmammouth', 500);
+                    } else {
+
+                        $ccterrain= $cartesRepository->find($cterrain[$i]);
+                        $main[] = $ccterrain->getId(); //on ajoute celles du terrain dans la main de J1
+                        $index = array_search($ccterrain->getId(), $terrain);
+                        unset($terrain[$index]); // on retire du terrain
+
+                        if ($cmain !== null && is_array($cmain) && count($cmain)>0){
+                            $ccmain = $cartesRepository->find($cmain[$i]);
+                            $terrain[]=$ccmain->getId(); //on ajoute celles de la main dans le terrain
+                            $indexmain = array_search($ccmain->getId(), $main);
+                            unset($main[$indexmain]);
+                        } else {
+
+                        } if ($cmammouth !== null && is_array($cmammouth) && count($cmammouth)>0) {
+                            $ccmammouth = $cartesRepository->find($cmammouth[$i]);
+                            $terrain[]=$ccmammouth->getId(); //on ajoute celles de l'enclos dans le terrain
+                            $indexmammouth = array_search($ccmammouth->getId(),$enclos);
+                            unset($terrain[$indexmammouth]);
+
+                        } else {
+                            $cartemain = null;
+                        }
+
+                        $partie->setMainJ1($main);
+                        $partie->setPartieTerrain($terrain);
+                        $partie->setChameauxJ1($enclos);
+                        $entityManager->flush();
+                        return $this->json(['cartemain' => $carteterrain->getJson()], 200);
+                    }
+
+                }
+
         }
         return $this->json('erreur', 500);
     }

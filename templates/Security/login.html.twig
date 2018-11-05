@@ -1,34 +1,72 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
+
     {% if error %}
         <div class="alert alert-danger">
             {{ error.messageKey }}
         </div>
     {% endif %}
 
-    <div class="row">
-    <div class="col-sm-5">
+    <div class="body-form">
         <div class="well">
             <form action="{{ path('security_login') }}" method="post">
                 <fieldset>
-                    <legend><i class="fa fa-lock" aria-hidden="true"></i> Connexion</legend>
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+                        <label class="col-3" for="username">Pseudo</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control col-8"/>
                     </div>
                     <div class="form-group">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="_password" class="form-control" />
+                        <label class="col-3" for="password">Mot de passe</label>
+                        <input type="password" id="password" name="_password" class="form-control col-8" />
                     </div>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter
-                    </button>
+                    <div class="row login">
+                        <div class="col inscription_mdp">
+                            <a href="{{ path ('user_registration') }}">Inscription</a>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                            <button type="submit" class="button-form">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i>Se connecter
+                            </button>
+
+                        </div>
+                        <div class="col inscription_mdp">
+                            <a href="{{ path('forgot_password') }}">Mot de passe oublie</a>
+                        </div>
+                    </div>
                 </fieldset>
             </form>
         </div>
     </div>
 
+    <div class="row justify-content-between">
+        <div class="col-4">
+            <a href="" class="button-jouer"><img src="{{ asset ('assets/images/fleche-orange2.png') }}" class="fleche2"> Jouer <img src="{{ asset ('assets/images/fleche-orange.png') }}" class="fleche"></a>
+            <a href="{{ path('index')}}" class="button-retour-login">Retour</a>
+            <ul class="left">
+                <li>
+                    <a href="">Nous contacter</a>
+                </li>
+                <li>
+                    <a href="">Mentions legals</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-4">
+            <ul class="right-login">
+                <li>
+                    <a href="">Mon compte</a>
+                </li>
+                <li>
+                    <a href="">Regles</a>
+                </li>
+                <li>
+                    <a href="">Reglages</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 {% endblock %}

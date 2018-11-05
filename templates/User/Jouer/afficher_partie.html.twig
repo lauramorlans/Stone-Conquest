@@ -37,11 +37,9 @@
         var cartesSelectedChameau = Array();
         var cartesSelectedMain = Array();
         var flag = false;
-
         $(document).ready(function(){
             setInterval(actualisePlateau, 2000);
         })
-
         function actualisePlateau() {
             $.ajax({
                 url: "{{ path('actualise_plateau', {partie: partie.id}) }}",
@@ -67,7 +65,6 @@
                 }
             });
         }
-
         $(document).on('click', '.cartechameau', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
@@ -80,6 +77,21 @@
                 //ajouter dans un tableau
                 cartesSelectedChameau.push($(this).data('carte'));
                 console.log(cartesSelectedChameau)
+            }
+        })
+
+        $(document).on('click', '.cartemain', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                //retirer d'un tableau
+                $index = cartesSelectedMain.indexOf($(this).data('carte'));
+                cartesSelectedMain.splice($index, 1);
+                console.log(cartesSelectedMain)
+            } else {
+                $(this).addClass('selected');
+                //ajouter dans un tableau
+                cartesSelectedMain.push($(this).data('carte'));
+                console.log(cartesSelectedMain)
             }
         })
 
@@ -100,9 +112,7 @@
                         console.log(cartesSelectedTerrain)
                     }
                 })
-
             }
-
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
                 //retirer d'un tableau
@@ -117,13 +127,11 @@
             }
         })
 
-
         $(document).on('click', '#action-prendre', function () {
             console.log(cartesSelectedTerrain)
             if (cartesSelectedTerrain.length === 0) {
                 alert('Selectionnez une carte');
             }
-
             else if ((cartesSelectedTerrain.length > 1) && (flag === false)) {
                 alert('Selectionnez une seule carte');
             }
@@ -157,6 +165,52 @@
             }
         })
 
+        $(document).on('click', '#action-troquer', function () {
+            console.log(cartesSelectedTerrain)
+            if (cartesSelectedTerrain.length === 0) {
+                alert('Selectionnez une carte');
+            }
+
+            else {
+
+                    console.log('OK');
+                    $.ajax({
+                        url: "{{ path('jouer_action_troquer', {partie: partie.id}) }}",
+                        data: {
+                            cterrain: cartesSelectedTerrain,
+                            cmain : cartesSelectedMain,
+                            cmammouth: cartesSelectedChameau
+                        },
+                        method: 'POST',
+                        success: function (data) {
+                            console.log('carte' + data['cartemain'].id);
+                            $('#bloc-action').hide();
+                            $('#bloc-suivant').show();
+                            $('#carte-' + data['cartemain'].id).remove();
+                            var chameau = ''
+                            if (data['carteterrain'].rang === 7) {
+                                chameau = "cartechameau";
+                            }
+                            $('#main').append('<img src="http://localhost/jeu/public/cartes/' + data['cartemain'].img + '" class="cartemain new" height="100px" data-carte="'+data['cartemain'].id+'" />');
+                        },
+                        error: function (data) {
+                            if (data === 'erreur7') {
+                                alert('Vous avez déjà 7 cartes en main. Vous ne pouvez pas jouer cette action.');
+                            } else if(data === 'erreurmammouth') {
+                                alert('Ne prenez que des marchandises');
+                            }
+                            else{
+                                alert('erreur action prendre');
+                            }
+
+                        }
+
+                    })
+                }
+
+
+        })
+
         $(document).on('click', '#action-terminer', function () {
             window.location.reload()
             $.ajax({
@@ -164,6 +218,5 @@
                 method: 'POST'
             });
         });
-
     </script>
 {% endblock %}
