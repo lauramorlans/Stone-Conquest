@@ -6,6 +6,7 @@ use App\Entity\Parties;
 use App\Repository\UserRepository;
 use App\Repository\CartesRepository;
 use App\Repository\JetonsRepository;
+use App\Repository\PartiesRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -149,7 +150,15 @@ class JouerController extends AbstractController
      * @Route("/liste-partie", name="partie_liste")
      */
 
-    public function listePartie() {
+    public function listePartie(Request $request, PartiesRepository $PartiesRepository) {
+
+        $repository = $this->getDoctrine()->getRepository(Parties::class);
+        $iduser = $this->getUser()->getId();
+        $partie = $repository->findBy(['joueur1_id' => $iduser ]);
+
+        return $this->render('User/Jouer/liste_partie.html.twig', [
+            'parties' => $partie,
+        ]);
     }
 
     /**
