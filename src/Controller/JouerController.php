@@ -150,14 +150,16 @@ class JouerController extends AbstractController
      * @Route("/liste-partie", name="partie_liste")
      */
 
-    public function listePartie(Request $request, PartiesRepository $PartiesRepository) {
+    public function listePartie() {
 
         $repository = $this->getDoctrine()->getRepository(Parties::class);
         $iduser = $this->getUser()->getId();
-        $partie = $repository->findBy(['joueur1_id' => $iduser ]);
+        $partie = $repository->findBy(['joueur1' => $iduser ]) ;
+        $partiee = $repository->findBy(['joueur2' => $iduser ]);
 
         return $this->render('User/Jouer/liste_partie.html.twig', [
             'parties' => $partie,
+            'partiees' => $partiee,
         ]);
     }
 

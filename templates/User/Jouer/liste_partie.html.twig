@@ -4,11 +4,18 @@
     Les parties en cours :
 
     <table border="1px">
-        <tr><th>Joueur 1</th><th>Joueur 2</th><th>Date</th><th>Manches</th><th>Tour</th><th>Jouer</th></tr>
+        <tr><th>N° partie</th><th>Joueur 1</th><th>Joueur 2</th><th>Date</th><th>Manches</th><th>Tour</th><th>Jouer</th></tr>
+        {% set nparties = 1 %}
         {% for partie in parties %}
-            <tr><td>{{ partie.joueur1 }}</td><td>{{ partie.joueur2 }}</td><td>{{ partie.partie_date }}</td><td>{{ partie.nb_manche }}</td><td>{{ partie.statue }}</td>
-                <td><a href="{{ path('afficher_partie', {'id': partie.id })}}">Jouer</a></td>
-                <br>{% endfor %}</td></tr>
+
+            <tr><td>{{ nparties }}</td><td>{{ partie.joueur1 }}</td><td>{{ partie.joueur2 }}</td><td>{{ partie.partie_date }}</td>
+            </tr>
+            {% set nparties = nparties + 1 %}
+        {% endfor %}
+        {% for partiee in partiees %}
+            <tr><td>{{ nparties }}</td><td>{{ partiee.joueur1 }}</td><td>{{ partiee.joueur2 }}</td><td>{{ partiee.partie_date }}</td>
+            </tr>
+            {% set nparties = nparties + 1 %}
         {% endfor %}
     </table>
     <a href="{{ path('security_logout')}}">Se déconnecter</a>

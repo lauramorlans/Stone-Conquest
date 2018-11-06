@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\EditUserType;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdministrationController extends AbstractController
@@ -15,7 +13,7 @@ class AdministrationController extends AbstractController
     /**
      * @Route("/admin/administration", name="administration")
      */
-    public function Administration(Request $request, UserRepository $userRepository)
+    public function Administration()
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findAll();
@@ -29,7 +27,7 @@ class AdministrationController extends AbstractController
     /**
      * @Route("/admin/edit/{id}", name="editUsers")
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder){
+    public function edit(Request $request, User $user){
         $form = $this->createForm(EditUserType::class, $user);
 
         $form->handleRequest($request);
