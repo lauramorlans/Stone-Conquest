@@ -228,4 +228,16 @@ class User implements UserInterface, \Serializable
     {
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
+
+    /**
+     * Generates the magic method
+     *
+     */
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->username;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
+
 }
