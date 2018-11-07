@@ -74,15 +74,15 @@
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
                 //retirer d'un tableau
-                $index = cartesSelectedChameau.indexOf($(this).data('carte'));
-                cartesSelectedChameau.splice($index, 1);
-                console.log(cartesSelectedChameau)
+                $index = cartesSelectedMainChameau.indexOf($(this).data('carte'));
+                cartesSelectedMainChameau.splice($index, 1);
+                console.log(cartesSelectedMainChameau)
             } else {
                 $(this).addClass('selected');
                 carteType = "main";
                 //ajouter dans un tableau
-                cartesSelectedChameau.push($(this).data('carte'));
-                console.log(cartesSelectedChameau)
+                cartesSelectedMainChameau.push($(this).data('carte'));
+                console.log(cartesSelectedMainChameau)
             }
         })
 
@@ -214,18 +214,23 @@
         })
 
         $(document).on('click', '#action-troquer', function () {
-            if (cartesSelectedMain.length === 0 || cartesSelectedMainChameau.length === 0) {
-                alert('Selectionnez des cartes dans votre main ou votre enclos');
-            }
-            else if (cartesSelectedTerrain.length === 0) {
-                alert('Selectionnez des cartes sur le terrain');
-            }
-            else if (cartesSelectedTerrain.length === 0 && cartesSelectedMain.length === 0) {
+            var cartes = cartesSelectedMainChameau.length + cartesSelectedMain.length ;
+
+            if (cartesSelectedTerrain.length === 0 && cartes === 0) {
                 alert('Selectionnez des cartes à échanger');
             }
 
-            else if (cartesSelectedTerrain.length !== cartesSelectedMain.length ) {
+            else if (cartes === 0) {
+                alert('Selectionnez des cartes dans votre main ou votre enclos');
+            }
+
+            else if (cartesSelectedTerrain.length === 0) {
+                alert('Selectionnez des cartes sur le terrain');
+            }
+
+            else if (cartesSelectedTerrain.length !== cartes ) {
                 alert('Selectionnez le même nombre de cartes');
+
             } else {
                 console.log('OK');
                 $.ajax({
@@ -241,20 +246,14 @@
                         $('#bloc-action').hide();
                         $('#bloc-suivant').show();
                         $('#carte-' + data['main'].id).remove();
-                        $('#carte-' + data['carteterrain'].id).remove();
+                        $('#carte-' + data['terrain'].id).remove();
 
                             var i ;
-                            for (i = 0; i < cartesSelectedMain.length; ++i) {
-                                // do something with `substr[i]`
-                                $('.cartemain_' + cartesSelectedMain[i]).hide('20000');
+                            for (i = 0; i < cartes ; ++i) {
                                 $('#terrain').append('<img src="http://localhost/jeu/public/cartes/' + data['cartemain'].img + '" class="carteterrain new" height="100px" data-carte="' + data['cartemain'].id + '" />');
-                            }
-
-                            for (i = 0; i < cartesSelectedTerrain.length; ++i) {
-                                // do something with `substr[i]`
-                                $('.terrain_' + cartesSelectedTerrain[i]).hide('20000');
                                 $('#main').append('<img src="http://localhost/jeu/public/cartes/' + data['carteterrain'].img + '" class="cartemain new" height="100px" data-carte="' + data['carteterrain'].id + '" />');
                             }
+
 
                     },
                     error: function (data) {

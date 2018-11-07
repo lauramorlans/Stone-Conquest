@@ -329,7 +329,7 @@ class JouerController extends AbstractController
                     $partie->setPartieTerrain($terrain);
                     $partie->setChameauxJ1($main_chameaux);
                     $entityManager->flush();
-                    return $this->json(['main' => $main, 'terrain' => $terrain, 'carteterrain' => $carteTerrain->getJson()], 200);
+                    return $this->json(['main' => $main, 'terrain' => $terrain, 'cartemain' => $carteMain->getJson(), 'carteterrain' => $carteTerrain->getJson()], 200);
                 } else {
                     return $this->json('Erreur action troc', 500);
                 }
