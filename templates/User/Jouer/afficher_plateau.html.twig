@@ -73,7 +73,7 @@
                 {% endfor %}
             </div>
             <div class="col-sm-12" style="height: 100px">
-                <div class="row">
+                <div id="terrain"class="row">
                     <div class="col-sm-2">{% if partie.partiepioche|length >0 %}<img src="{{ asset('cartes/dos_carte.png') }}" height="100px" />{% else %}Vide{% endif %}<p>Pioche</p></div>
                     <div id="terrain" class="row">
                         {% for carte in partie.partieterrain %}
@@ -84,7 +84,7 @@
             </div>
             <div class="col-sm-12" style="height: 100px">
                 {% for carte in partie.chameauxJ1 %}
-                    <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartechameau" height="100px" data-carte="{{ carte }}" />
+                    <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain_chameau" height="100px" data-carte="{{ carte }}" />
                 {% endfor %}
             </div>
             <div class="col-sm-12" style="height: 100px">Mes cartes<br>

@@ -174,43 +174,48 @@ class JouerController extends AbstractController
         Parties $partie
     ) {
         $idcarte = $request->request->get('cartes');
-        $carte = $cartesRepository->find($idcarte[0]);
+        $idmammouth = $request->request->get('chameaux');
 
-        if ($carte !== null) {
+        if ($idmammouth !== null) {
+            $chameau = $cartesRepository->find($idmammouth[0]);
             //je considére que je suis j1.
-            $main = $partie->getMainJ1();
-            $enclos = $partie->getChameauxJ1();
-            $terrain = $partie->GetPartieTerrain();
+            $main_chameaux = $partie->getChameauxJ1();
+            $terrain = $partie->getPartieTerrain();
             $pioche = $partie->getPartiePioche();
-            //vérifier s'il y a 7 cartes dans la main (pourrait se faire en js).
-            if (count($main) < 7) {
-
-                if ($carte->getId() > 44){ //si j'ai des mammouths sélectionnées
-                    $compter = count($idcarte); //on compte le nombre de cartes sélectionnées
-                    for ($i = 0 ; $i < $compter ; $i ++){
-                        $cartes= $cartesRepository->find($idcarte[$i]);
-                        $enclos[]=$cartes->getId();
-                        $index = array_search($cartes->getId(), $terrain);
-                        unset($terrain[$index]); // on retire du terrain
-                        if (count($pioche) > 0) {
-                            $idcartep = array_pop($pioche);
-                            $cartep = $cartesRepository->find($idcartep);
-                            if ($cartep !== null) {
-                                $terrain[] = $cartep->getId(); //piocher et mettre sur le terrain
-                            }
-                        }
+            for ($i = 0; $i < count($idmammouth); $i++) {
+                $main_chameaux[] = $idmammouth[$i]; //on ajoute dans la main de J1
+                $index = array_search($idmammouth[$i], $terrain);
+                unset($terrain[$index]); // on retire du terrain
+                if (count($pioche) > 0) {
+                    $idcartep = array_pop($pioche);
+                    $cartep = $cartesRepository->find($idcartep);
+                    if ($cartep !== null) {
+                        $terrain[] = $cartep->getId(); //piocher et mettre sur le terrain
                     }
+                }
+            }
 
-                    $partie->setChameauxJ1($enclos);
-                    $partie->setPartieTerrain($terrain);
-                    $partie->setPartiePioche($pioche);
-                    $entityManager->flush();
-                    return $this->json(['carteterrain' => $cartep->getJson(), 'cartemain' => $carte->getJson()], 200);
+            // executer
+            $partie->setChameauxJ1($main_chameaux);
+            $partie->setPartieTerrain($terrain);
+            $partie->setPartiePioche($pioche);
+            $entityManager->flush();
+            return $this->json(['carteterrain' => $cartep->getJson(), 'carteschameaux' => $chameau->getJson()], 200);
+        }
 
-                } else {
+        if ($idcarte !== null) {
+            $carte = $cartesRepository->find($idcarte[0]);
+
+            if ($carte !== null) {
+                //je considére que je suis j1.
+                $main = $partie->getMainJ1();
+                //vérifier s'il y a 7 cartes dans la main (pourrait se faire en js).
+                if (count($main) < 7) {
                     $main[] = $carte->getId(); //on ajoute dans la main de J1
+                    $terrain = $partie->getPartieTerrain();
                     $index = array_search($carte->getId(), $terrain);
                     unset($terrain[$index]); // on retire du terrain
+                    $pioche = $partie->getPartiePioche();
                     if (count($pioche) > 0) {
                         $idcartep = array_pop($pioche);
                         $cartep = $cartesRepository->find($idcartep);
@@ -218,20 +223,19 @@ class JouerController extends AbstractController
                             $terrain[] = $cartep->getId(); //piocher et mettre sur le terrain
                         }
                     }
-
                     $partie->setMainJ1($main);
                     $partie->setPartieTerrain($terrain);
                     $partie->setPartiePioche($pioche);
                     $entityManager->flush();
                     return $this->json(['carteterrain' => $cartep->getJson(), 'cartemain' => $carte->getJson()], 200);
+                } else {
+                    return $this->json('erreur7', 500);
                 }
-
-            } else {
-                return $this->json('erreur7', 500);
             }
         }
         return $this->json('erreur', 500);
     }
+
 
     /**
      * @Route("/jouer-action/troquer/{partie}", name="jouer_action_troquer")
