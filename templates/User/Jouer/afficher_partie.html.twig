@@ -177,7 +177,7 @@
                         for (i = 0; i < cartesSelectedTerrain.length; ++i) {
                             // do something with `substr[i]`
                             $('.carte_' + cartesSelectedTerrain[i]).hide('20000');
-                            $('#main').append('<img src="http://localhost/jeu/public/cartes/' + data['carteschameaux'].img + '" class="cartemain new" height="100px" data-carte="'+data['carteschameaux'].id+'" />');
+                            $('#enclos').append('<img src="http://localhost/jeu/public/cartes/' + data['carteschameaux'].img + '" class="cartemain new" height="100px" data-carte="'+data['carteschameaux'].id+'" />');
                         }
                     },
                 })
@@ -214,48 +214,60 @@
         })
 
         $(document).on('click', '#action-troquer', function () {
-            console.log(cartesSelectedTerrain)
-            if (cartesSelectedTerrain.length === 0) {
-                alert('Selectionnez une carte');
+            if (cartesSelectedMain.length === 0 || cartesSelectedMainChameau.length === 0) {
+                alert('Selectionnez des cartes dans votre main ou votre enclos');
+            }
+            else if (cartesSelectedTerrain.length === 0) {
+                alert('Selectionnez des cartes sur le terrain');
+            }
+            else if (cartesSelectedTerrain.length === 0 && cartesSelectedMain.length === 0) {
+                alert('Selectionnez des cartes à échanger');
             }
 
-            else {
+            else if (cartesSelectedTerrain.length !== cartesSelectedMain.length ) {
+                alert('Selectionnez le même nombre de cartes');
+            } else {
+                console.log('OK');
+                $.ajax({
+                    url: "{{ path('jouer_action_troquer', {partie: partie.id}) }}",
+                    data: {
+                        terrain: cartesSelectedTerrain,
+                        main: cartesSelectedMain,
+                        chameaux_main: cartesSelectedMainChameau
+                    },
+                    method: 'POST',
+                    success: function (data) {
+                        console.log('carte' + data['main'].id);
+                        $('#bloc-action').hide();
+                        $('#bloc-suivant').show();
+                        $('#carte-' + data['main'].id).remove();
+                        $('#carte-' + data['carteterrain'].id).remove();
 
-                    console.log('OK');
-                    $.ajax({
-                        url: "{{ path('jouer_action_troquer', {partie: partie.id}) }}",
-                        data: {
-                            cterrain: cartesSelectedTerrain,
-                            cmain : cartesSelectedMain,
-                            cmammouth: cartesSelectedChameau
-                        },
-                        method: 'POST',
-                        success: function (data) {
-                            console.log('carte' + data['cartemain'].id);
-                            $('#bloc-action').hide();
-                            $('#bloc-suivant').show();
-                            $('#carte-' + data['cartemain'].id).remove();
-                            var chameau = ''
-                            if (data['carteterrain'].rang === 7) {
-                                chameau = "cartechameau";
-                            }
-                            $('#main').append('<img src="http://localhost/jeu/public/cartes/' + data['cartemain'].img + '" class="cartemain new" height="100px" data-carte="'+data['cartemain'].id+'" />');
-                        },
-                        error: function (data) {
-                            if (data === 'erreur7') {
-                                alert('Vous avez déjà 7 cartes en main. Vous ne pouvez pas jouer cette action.');
-                            } else if(data === 'erreurmammouth') {
-                                alert('Ne prenez que des marchandises');
-                            }
-                            else{
-                                alert('erreur action prendre');
+                            var i ;
+                            for (i = 0; i < cartesSelectedMain.length; ++i) {
+                                // do something with `substr[i]`
+                                $('.cartemain_' + cartesSelectedMain[i]).hide('20000');
+                                $('#terrain').append('<img src="http://localhost/jeu/public/cartes/' + data['cartemain'].img + '" class="carteterrain new" height="100px" data-carte="' + data['cartemain'].id + '" />');
                             }
 
+                            for (i = 0; i < cartesSelectedTerrain.length; ++i) {
+                                // do something with `substr[i]`
+                                $('.terrain_' + cartesSelectedTerrain[i]).hide('20000');
+                                $('#main').append('<img src="http://localhost/jeu/public/cartes/' + data['carteterrain'].img + '" class="cartemain new" height="100px" data-carte="' + data['carteterrain'].id + '" />');
+                            }
+
+                    },
+                    error: function (data) {
+                        if (data === 'erreur7') {
+                            alert('Vous avez déjà 7 cartes en main. Vous ne pouvez pas jouer cette action.');
                         }
+                        else{
+                            alert('erreur action prendre');
+                        }
+                    }
+                })
 
-                    })
-                }
-
+            }
 
         })
 

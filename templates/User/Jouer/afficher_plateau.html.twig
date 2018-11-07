@@ -82,12 +82,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12" style="height: 100px">
+            <div class="col-sm-12" id="enclos" style="height: 100px">
                 {% for carte in partie.chameauxJ1 %}
                     <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain_chameau" height="100px" data-carte="{{ carte }}" />
                 {% endfor %}
             </div>
-            <div class="col-sm-12" style="height: 100px">Mes cartes<br>
+            <div class="col-sm-12" id="main" style="height: 100px">Mes cartes<br>
                 {% for carte in partie.mainJ1 %}
                     <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain" height="100px" data-carte="{{ carte }}" />
                 {% endfor %}
