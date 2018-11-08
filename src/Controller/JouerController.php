@@ -30,8 +30,10 @@ class JouerController extends AbstractController
      */
     public function creerPartie(UserRepository $userRepository, CartesRepository $cartesRepository, JetonsRepository $jetonsRepository, Request $request)
     {
-        if ($request->getMethod() == 'POST'){
-            $j1 = $userRepository->find($request->request->get('joueur1'));
+
+        if ($request->getMethod() == 'POST') {
+            $userId = $this->getUser()->getId();
+            $j1 = $userRepository->find($userId);
             $j2 = $userRepository->find($request->request->get('joueur2'));
 
             $partie = new Parties;
@@ -41,7 +43,7 @@ class JouerController extends AbstractController
 
             $partie->setNbManche(1);
             $partie->setPartieDefausse(false);
-            $partie->setPartieStatue('1');
+            $partie->setPartieStatue($userId);
             $partie->setJetonChameaux(0);
             $partie->setPointJ1(0);
             $partie->setPointJ2(0);
@@ -53,22 +55,22 @@ class JouerController extends AbstractController
             $cartes = $cartesRepository->findBy([], ['rang' => 'ASC']);
 
             $tTerrain = []; //on commence avec 3 chameaux
-            for ($i=0; $i<3; $i++){
+            for ($i = 0; $i < 3; $i++) {
                 $tTerrain[] = array_pop($cartes)->getId();
             }
 
             shuffle($cartes);
-            for ($i=0; $i<2; $i++){ //on complète avec deux cartes au hasard
+            for ($i = 0; $i < 2; $i++) { //on complète avec deux cartes au hasard
                 $tTerrain[] = array_pop($cartes)->getId();
             }
             $partie->setpartieTerrain($tTerrain);
 
-            $tMain=[];
+            $tMain = [];
             $tMammouth = [];
-            for ($i=0; $i<5; $i++){ //on distribue 5 cartes à J1
+            for ($i = 0; $i < 5; $i++) { //on distribue 5 cartes à J1
                 $carte = array_pop($cartes);
-                if ($carte->getRang() === 7){
-                    $tMammouth[]=$carte->getId();
+                if ($carte->getRang() === 7) {
+                    $tMammouth[] = $carte->getId();
                 } else {
                     $tMain[] = $carte->getId();
                 }
@@ -77,12 +79,12 @@ class JouerController extends AbstractController
             $partie->setMainJ1(($tMain));
             $partie->setChameauxJ1($tMammouth);
 
-            $tMain=[];
+            $tMain = [];
             $tMammouth = [];
-            for ($i=0; $i<5; $i++){ //on distribue 5 cartes à J2
+            for ($i = 0; $i < 5; $i++) { //on distribue 5 cartes à J2
                 $carte = array_pop($cartes);
-                if ($carte->getRang() === 7){
-                    $tMammouth[]=$carte->getId();
+                if ($carte->getRang() === 7) {
+                    $tMammouth[] = $carte->getId();
                 } else {
                     $tMain[] = $carte->getId();
                 }
@@ -92,8 +94,8 @@ class JouerController extends AbstractController
             $partie->setChameauxJ2($tMammouth);
 
             $tPioche = [];
-            for ($i=0; $i<count($cartes); $i++){
-                $tPioche[]= array_pop($cartes)->getId();
+            for ($i = 0; $i < count($cartes); $i++) {
+                $tPioche[] = array_pop($cartes)->getId();
             }
             $partie->setPartiePioche($tPioche); //les dernières cartes constituent la pioche
 
@@ -108,54 +110,50 @@ class JouerController extends AbstractController
             return $this->redirectToRoute('afficher_partie', ['partie' => $partie->getId()]);
         }
 
-        return $this->render('User/Jouer/creer_partie.html.twig', [ 'joueurs' => $userRepository->findAll()]);
+        return $this->render('User/Jouer/creer_partie.html.twig', ['joueurs' => $userRepository->findAll()]);
     }
 
     /**
      * @Route("/afficher-partie/{partie}", name="afficher_partie")
      */
 
-    public function afficherPartie(Parties $partie){
+    public function afficherPartie(Parties $partie)
+    {
         return $this->render('User/Jouer/afficher_partie.html.twig', ['partie' => $partie]);
     }
 
     /**
      * @Route("/afficher-plateau/{partie}", name="afficher_plateau")
      */
-    public function afficherPlateau(JetonsRepository $jetonsRepository, CartesRepository $cartesRepository, Parties $partie) {
+    public function afficherPlateau(JetonsRepository $jetonsRepository, CartesRepository $cartesRepository, Parties $partie)
+    {
         return $this->render('User/Jouer/afficher_plateau.html.twig',
             ['partie' => $partie,
                 'jetons' => $jetonsRepository->findByArrayId(),
                 'cartes' => $cartesRepository->findByArrayId(),
             ]);
     }
+
     /**
      * @Route("/actualise-plateau/{partie}", name="actualise_plateau")
      */
-    public function actualisePlateau(Parties $partie) {
-        switch ($partie->getPartieStatue()) {
-            //tester si je suis J1 ou J2 et en fonction adapter les return.
-            case '1':
-                return $this->json('montour');
-            case '2':
-                return $this->json('touradversaire');
-            case 'T':
-                return $this->json('T');
-            default:
-                return $this->json('E');
-        }
+    public function actualisePlateau(Parties $partie)
+    {
+
+        return $this->json($partie->getPartieStatue());
     }
 
     /**
      * @Route("/liste-partie", name="partie_liste")
      */
 
-    public function listePartie() {
+    public function listePartie()
+    {
 
         $repository = $this->getDoctrine()->getRepository(Parties::class);
         $iduser = $this->getUser()->getId();
-        $partie = $repository->findBy(['joueur1' => $iduser ]) ;
-        $partiee = $repository->findBy(['joueur2' => $iduser ]);
+        $partie = $repository->findBy(['joueur1' => $iduser]);
+        $partiee = $repository->findBy(['joueur2' => $iduser]);
 
         return $this->render('User/Jouer/liste_partie.html.twig', [
             'parties' => $partie,
@@ -172,7 +170,8 @@ class JouerController extends AbstractController
         CartesRepository $cartesRepository,
         Request $request,
         Parties $partie
-    ) {
+    )
+    {
         $idcarte = $request->request->get('cartes');
         $idmammouth = $request->request->get('chameaux');
 
@@ -339,14 +338,25 @@ class JouerController extends AbstractController
             return $this->json('erreur', 500);
         }
     }
+
     /**
      * @Route("/jouer-action/suivant/{partie}", name="jouer_action_suivant")
      */
-    public function jouerActionSuivant( EntityManagerInterface $entityManager,
-                                        Parties $partie)
-    {
-        $partie->setPartieStatue('2'); //en considérant que je suis J1 ... a calculer.
-        $entityManager->flush();
-        return $this->json('Joueur-suivant', 200);
+    public function jouerActionSuivant(EntityManagerInterface $entityManager,
+                                       Parties $partie) {
+        $j1 = $partie->getJoueur1()->getId();
+        $j2 = $partie->getJoueur2()->getId();
+        $status = $partie->getPartieStatue();
+        if ($status == $j1) {
+            $partie->setPartieStatue($j2);
+            $entityManager->flush();
+            return $this->json('Joueur-suivant', 200);
+        } elseif ($status == $j2) {
+            $partie->setPartieStatue($j1);
+            $entityManager->flush();
+            return $this->json('Joueur-suivant', 200);
+        }
+        return $this->json($j1, 200);
     }
+
 }

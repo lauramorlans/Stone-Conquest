@@ -22,7 +22,7 @@ class Parties
     private $partie_date;
 
     /**
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="integer")
      */
     private $partie_statue;
 

@@ -1,4 +1,5 @@
-<div class="row">
+<div class="row" id="plateau">
+    <input type="hidden" class="UserJoueurID" value="{{app.user.id}}">
     <div class="col-sm-4">
         <div class="row">
             <div class="col-sm-12">{% for jeton in partie.jetonsTerrain.Feu %}
@@ -63,14 +64,26 @@
     <div class="col-sm-8">
         <div class="row">
             <div class="col-sm-12" style="height: 100px">
-                {% for carte in partie.mainJ2 %}
-                    <img src="{{ asset('cartes/dos_carte.png') }}" height="100px" />
-                {% endfor %}
+                {% if app.user.id == partie.joueur1.id %}
+                    {% for carte in partie.mainJ2 %}
+                        <img src="{{ asset('cartes/dos_carte.png') }}" height="100px" />
+                    {% endfor %}
+                {% elseif app.user.id == partie.joueur2.id %}
+                    {% for carte in partie.mainJ1 %}
+                        <img src="{{ asset('cartes/dos_carte.png') }}" height="100px" />
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="col-sm-12" style="height: 100px">
-                {% for carte in partie.chameauxJ2 %}
+                {% if app.user.id == partie.joueur1.id %}
+                    {% for carte in partie.chameauxJ2 %}
                     <img src="{{ asset('cartes/'~cartes[carte].img) }}" height="100px" />
-                {% endfor %}
+                    {% endfor %}
+                {% elseif app.user.id == partie.joueur2.id %}
+                    {% for carte in partie.chameauxJ1 %}
+                        <img src="{{ asset('cartes/'~cartes[carte].img) }}" height="100px" />
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="col-sm-12" style="height: 100px">
                 <div id="terrain"class="row">
@@ -83,14 +96,27 @@
                 </div>
             </div>
             <div class="col-sm-12" id="enclos" style="height: 100px">
-                {% for carte in partie.chameauxJ1 %}
-                    <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain_chameau" height="100px" data-carte="{{ carte }}" />
-                {% endfor %}
+                {% if app.user.id == partie.joueur1.id %}
+                    {% for carte in partie.chameauxJ1 %}
+                        <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain_chameau" height="100px" data-carte="{{ carte }}" />
+                    {% endfor %}
+                {% elseif app.user.id == partie.joueur2.id %}
+                    {% for carte in partie.chameauxJ2 %}
+                        <img src="{{ asset('cartes/'~cartes[carte].img) }}" height="100px" />
+                    {% endfor %}
+                {% endif %}
+
             </div>
             <div class="col-sm-12" id="main" style="height: 100px">Mes cartes<br>
-                {% for carte in partie.mainJ1 %}
-                    <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain" height="100px" data-carte="{{ carte }}" />
-                {% endfor %}
+                {% if app.user.id == partie.joueur1.id %}
+                    {% for carte in partie.mainJ1 %}
+                        <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain" height="100px" data-carte="{{ carte }}" />
+                    {% endfor %}
+                {% elseif app.user.id == partie.joueur2.id %}
+                    {% for carte in partie.mainJ2 %}
+                        <img src="{{ asset('cartes/'~cartes[carte].img) }}" class="cartemain" height="100px" data-carte="{{ carte }}" />
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

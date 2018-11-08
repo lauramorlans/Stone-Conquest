@@ -32,6 +32,7 @@
 
 {% block javascripts %}
     <script>
+        $('#attentejoueur').hide();
         var actualise = false;
         var cartesSelectedTerrain = Array();
         var cartesSelectedChameau = Array();
@@ -39,6 +40,7 @@
         var cartesSelectedMainChameau = Array();
         var flag = false;
         var carteType = "default";
+        var TourJoueur = $('input.UserJoueurID').val();
 
         $(document).ready(function(){
             setInterval(actualisePlateau, 2000);
@@ -49,23 +51,33 @@
                 url: "{{ path('actualise_plateau', {partie: partie.id}) }}",
             }).done(function (etat) {
                 console.log(etat);
-                if (etat === 'touradversaire') {
-                    actualise = false;
-                    console.log('attente Adversaire')
-                    $('#attentejoueur').show();
-                }
-                if (etat === 'montour') {
+                if (etat === TourJoueur) {
                     if (actualise === false) {
                         console.log('reload');
+
                         $('#plateau').empty().load("{{ path('afficher_plateau', {partie:partie.id}) }}");
                         $('img').removeClass('selected');
-                        cartesSelectedTerrain = Array();
-                        cartesSelectedChameau = Array();
-                        cartesSelectedMain = Array();
+
                         actualise = true;
                         $('#attentejoueur').hide();
+                        $('#attente').hide();
+                        cartesSelectedTerrain =[];
+                        cartesSelectedChameau = [];
+                        cartesSelectedMain = [];
+                        cartesSelectedMainChameau = [];
+
                     }
-                    console.log('Mon tour')
+                    //console.log('Mon tour')
+                } else {
+                    actualise = false;
+                    console.log('attente Adversaire')
+
+                    $('#attentejoueur').show();
+                    cartesSelectedTerrain = [];
+                    cartesSelectedChameau = [];
+                    cartesSelectedMain = [];
+                    cartesSelectedMainChameau = [];
+
                 }
             });
         }
@@ -231,7 +243,9 @@
             else if (cartesSelectedTerrain.length !== cartes ) {
                 alert('Selectionnez le même nombre de cartes');
 
-            } else {
+            }
+
+            else {
                 console.log('OK');
                 $.ajax({
                     url: "{{ path('jouer_action_troquer', {partie: partie.id}) }}",
@@ -271,11 +285,12 @@
         })
 
         $(document).on('click', '#action-terminer', function () {
-            window.location.reload()
             $.ajax({
                 url: "{{ path('jouer_action_suivant', {partie: partie.id}) }}",
                 method: 'POST'
             });
+
+            location.reload();
         });
     </script>
 {% endblock %}
