@@ -3,18 +3,23 @@
 {% block body %}
 
     <div class="contact-page">
-        <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
-
-        <ul id="menu-demo2">
-            <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
-                <ul>
-                    <li><a href="{{ path('change_email')}}">Changer email</a></li>
-                    <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
-                    <li><a href="{{ path('administration')}}">Administration</a></li>
-                    <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
+        <div class="row justify-content-between col-menu">
+            <div class="col">
+                <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
+            </div>
+            <div class="col">
+                <ul id="menu-demo2">
+                    <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
+                        <ul>
+                            <li><a href="{{ path('change_email')}}">Changer email</a></li>
+                            <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
+                            <li><a href="{{ path('administration')}}">Administration</a></li>
+                            <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-        </ul>
+            </div>
+        </div>
 
         {{ form_start(form, {'attr': {'class': 'body-form'}}) }}
         <fieldset>
