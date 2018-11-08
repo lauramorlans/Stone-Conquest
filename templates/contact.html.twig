@@ -2,12 +2,52 @@
 
 {% block body %}
 
-{{ form_start(form) }}
-    {{ form_row(form.from) }}
-    {{ form_row(form.subject) }}
-    {{ form_row(form.message) }}
+    <div class="contact-page">
+        <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
 
-    <input type="submit" value="Envoyer" />
-    {{ form_end(form) }}
+        <ul id="menu-demo2">
+            <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
+                <ul>
+                    <li><a href="{{ path('change_email')}}">Changer email</a></li>
+                    <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
+                    <li><a href="{{ path('administration')}}">Administration</a></li>
+                    <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        {{ form_start(form, {'attr': {'class': 'body-form'}}) }}
+        <fieldset>
+            <label class="col-3">De :</label> {{ form_widget(form.from, {'attr': {'class': 'col-8'}}) }}
+        </fieldset>
+        <fieldset>
+            <label class="col-3">Sujet :</label> {{ form_widget(form.subject, {'attr': {'class': 'col-8'}}) }}
+        </fieldset>
+        <fieldset>
+            <label class="col-3 message">Message :</label> {{ form_widget(form.message, {'attr': {'class': 'col-8'}}) }}
+        </fieldset>
+        <input type="submit" class="button-form" value="Envoyer" />
+        {{ form_end(form) }}
+        <div class="row justify-content-between contact_links">
+            <div class="col-4 col-contact">
+                <a href="{{ path('index')}}" class="button-retour-contact">Retour</a>
+                <ul class="left">
+                    <li>
+                        <a href="{{ path('contact') }}">Nous contacter</a>
+                    </li>
+                    <li>
+                        <a href="">Mentions legales</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul class="regles">
+                    <li>
+                        <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

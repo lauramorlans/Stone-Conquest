@@ -1,25 +1,67 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Les parties en cours :
+    <div class="listePartie-page">
+        <div class="row justify-content-between col-menu">
+            <div class="col">
+                <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
+            </div>
+            <div class="col">
+                <ul id="menu-demo2">
+                    <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
+                        <ul>
+                            <li><a href="{{ path('change_email')}}">Changer email</a></li>
+                            <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
+                            <li><a href="{{ path('administration')}}">Administration</a></li>
+                            <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-    <table border="1px">
-        <tr><th>N° partie</th><th>Joueur 1</th><th>Joueur 2</th><th>Manches</th><th>Jouer</th></tr>
-        {% set nparties = 1 %}
-        {% for partie in parties %}
+        <h1>Les parties en cours :</h1>
 
-            <tr><td>{{ nparties }}</td><td>{{ partie.joueur1 }}</td><td>{{ partie.joueur2 }}</td><td>{{ partie.nbmanche }}/3</td>
-                <td><a href="{{ path('afficher_partie', {'partie': partie.id })}}">Jouer</a></td>
-            </tr>
-            {% set nparties = nparties + 1 %}
-        {% endfor %}
-        {% for partiee in partiees %}
-            <tr><td>{{ nparties }}</td><td>{{ partiee.joueur1 }}</td><td>{{ partiee.joueur2 }}</td><td>{{ partiee.nbmanche }}/3</td>
-                <td><a href="{{ path('afficher_partie', {'partie': partiee.id })}}">Jouer</a></td>
-            </tr>
-            {% set nparties = nparties + 1 %}
-        {% endfor %}
-    </table>
-    <a href="{{ path('security_logout')}}">Se déconnecter</a>
+        <table>
+            <tr><th>N° partie</th><th>Joueur 1</th><th>Joueur 2</th><th>Manches</th><th>Jouer</th></tr>
+            {% set nparties = 1 %}
+            {% for partie in parties %}
+
+                <tr><td>{{ nparties }}</td><td>{{ partie.joueur1 }}</td><td>{{ partie.joueur2 }}</td><td>{{ partie.nbmanche }}/3</td>
+                    <td><a href="{{ path('afficher_partie', {'partie': partie.id })}}">Jouer</a></td>
+                </tr>
+                {% set nparties = nparties + 1 %}
+            {% endfor %}
+            {% for partiee in partiees %}
+                <tr><td>{{ nparties }}</td><td>{{ partiee.joueur1 }}</td><td>{{ partiee.joueur2 }}</td><td>{{ partiee.nbmanche }}/3</td>
+                    <td><a href="{{ path('afficher_partie', {'partie': partiee.id })}}">Jouer</a></td>
+                </tr>
+                {% set nparties = nparties + 1 %}
+            {% endfor %}
+        </table>
+
+        <div class="row justify-content-between liPartie_links">
+            <div class="col-4 col-liPartie">
+                <a href="{{ path('user')}}" class="button-retour-liPartie">Retour</a>
+                <ul class="left">
+                    <li>
+                        <a href="{{ path('contact') }}">Nous contacter</a>
+                    </li>
+                    <li>
+                        <a href="">Mentions legales</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul class="regles">
+                    <li>
+                        <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
+

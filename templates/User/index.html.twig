@@ -1,15 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('creer_partie')}}">Créer une partie</a>
-    <a href="{{ path('partie_liste')}}">Liste partie</a>
-    <a href="{{ path('change_email')}}">Changer email</a>
-    <a href="{{ path('change_password')}}">Changer mot de pase</a>
+    <div class="index-user">
 
-    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('administration')}}">Administration</a>
-    {% endif %}
 
-    <a href="{{ path('security_logout')}}">Déconnexion</a>
+        <ul id="menu-demo2">
+            <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
+                <ul>
+                    <li><a href="{{ path('change_email')}}">Changer email</a></li>
+                    <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
+                    <li><a href="{{ path('administration')}}">Administration</a></li>
+                    <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
+                </ul>
+            </li>
+        </ul>
+
+
+        <div class="row justify-content-between user_links">
+            <div class="col-4">
+                <ul>
+                    <li>
+                        <a href="{{ path('creer_partie')}}" class="button-jouer"><img src="{{ asset ('assets/images/fleche-orange2.png') }}" class="fleche2"> Jouer </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('partie_liste')}}" class="button-retour-user">Liste partie</a>
+                    </li>
+                </ul>
+                <ul class="left">
+                    <li>
+                        <a href="{{ path('contact') }}">Nous contacter</a>
+                    </li>
+                    <li>
+                        <a href="">Mentions legales</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul class="regles">
+                    <li>
+                        <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

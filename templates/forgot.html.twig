@@ -1,43 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<img src="{{ asset ('assets/images/logo.png') }}" class="logo">
 
-{{ form_start(form, {'attr': {'class': 'body-form'}}) }}
-    <fieldset>
-            <label class="col-3">Pseudo</label>{{ form_widget(form.username, {'attr': {'class': 'col-8'}}) }})
-            <label class="col-3">Nouveau mot de passe</label>{{ form_widget(form.plainPassword.first, {'attr': {'class': 'col-8'}}) }})
-            <label class="col-3">Entrer de nouveau le mot de passe</label>{{ form_widget(form.plainPassword.second, {'attr': {'class': 'col-8'}}) }})
-    </fieldset>
+        <div class="forget_mdp_page">
+                <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
 
-<button type="submit" class="button-form">Changer mot de passe</button>
-{{ form_end(form) }}
+            {{ form_start(form, {'attr': {'class': 'body-form'}}) }}
+                <fieldset>
+                        <label class="col-3">Pseudo</label>{{ form_widget(form.username, {'attr': {'class': 'col-8'}}) }})
+                        <label class="col-3">Nouveau mot de passe</label>{{ form_widget(form.plainPassword.first, {'attr': {'class': 'col-8'}}) }})
+                        <label class="col-3">Entrer de nouveau le mot de passe</label>{{ form_widget(form.plainPassword.second, {'attr': {'class': 'col-8'}}) }})
+                </fieldset>
 
-        <div class="row justify-content-between">
-                <div class="col-4">
-                        <a href="{{ path('index')}}" class="button-retour">Retour <img src="{{ asset ('assets/images/fleche.png') }}" class="fleche"></a>
+                <button type="submit" class="button-form">Changer mot de passe</button>
+            {{ form_end(form) }}
 
-                        <ul class="left">
-                                <li>
-                                        <a href="">Nous contacter</a>
-                                </li>
-                                <li>
-                                        <a href="">Mentions legals</a>
-                                </li>
-                        </ul>
-                </div>
-                <div class="col-4">
-                        <ul class="right">
-                                <li>
-                                        <a href="">Mon compte</a>
-                                </li>
-                                <li>
-                                        <a href="">Regles</a>
-                                </li>
-                                <li>
-                                        <a href="">Reglages</a>
-                                </li>
-                        </ul>
+                <div class="row justify-content-between forget_links">
+                        <div class="col-4 col-forget">
+                                <a href="{{ path('index')}}" class="button-retour-forget">Retour</a>
+                                <ul class="left">
+                                        <li>
+                                                <a href="">Nous contacter</a>
+                                        </li>
+                                        <li>
+                                                <a href="">Mentions legals</a>
+                                        </li>
+                                </ul>
+                        </div>
+                        <div class="col-4">
+                                <ul class="regles">
+                                        <li>
+                                                <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
+                                        </li>
+                                </ul>
+                        </div>
                 </div>
         </div>
 

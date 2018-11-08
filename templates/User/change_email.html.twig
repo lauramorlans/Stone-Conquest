@@ -1,40 +1,55 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<img src="{{ asset ('assets/images/logo.png') }}" class="logo">
 
-{{ form_start(form, {'attr': {'class': 'body-form'}}) }}
-        {{ form_row(form.email) }}
-
-<button type="submit" class="button-form">Changer e-mail</button>
-{{ form_end(form) }}
-
-        <div class="row justify-content-between">
-                <div class="col-4">
-                        <a href="{{ path('index')}}" class="button-retour">Retour <img src="{{ asset ('assets/images/fleche.png') }}" class="fleche"></a>
-
-                        <ul class="left">
-                                <li>
-                                        <a href="">Nous contacter</a>
-                                </li>
-                                <li>
-                                        <a href="">Mentions legals</a>
-                                </li>
+    <div class="email-page">
+        <div class="row justify-content-between col-menu">
+            <div class="col">
+                <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
+            </div>
+            <div class="col">
+                <ul id="menu-demo2">
+                    <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
+                        <ul>
+                            <li><a href="{{ path('change_email')}}">Changer email</a></li>
+                            <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
+                            <li><a href="{{ path('administration')}}">Administration</a></li>
+                            <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
                         </ul>
-                </div>
-                <div class="col-4">
-                        <ul class="right">
-                                <li>
-                                        <a href="">Mon compte</a>
-                                </li>
-                                <li>
-                                        <a href="">Regles</a>
-                                </li>
-                                <li>
-                                        <a href="">Reglages</a>
-                                </li>
-                        </ul>
-                </div>
+                    </li>
+                </ul>
+            </div>
         </div>
+
+
+
+        {{ form_start(form, {'attr': {'class': 'body-form'}}) }}
+        <fieldset>
+            <label class="col-3">Nouvel email</label> {{ form_widget(form.email, {'attr': {'class': 'col-8'}}) }}
+        </fieldset>
+            <button type="submit" class="button-form">Changer email</button>
+        {{ form_end(form) }}
+
+        <div class="row justify-content-between email_links">
+            <div class="col-4 col-email">
+                <a href="{{ path('user')}}" class="button-retour-email">Retour</a>
+                <ul class="left">
+                    <li>
+                        <a href="{{ path('contact') }}">Nous contacter</a>
+                    </li>
+                    <li>
+                        <a href="">Mentions legales</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul class="regles">
+                    <li>
+                        <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 {% endblock body %}

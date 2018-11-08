@@ -347,11 +347,11 @@ class JouerController extends AbstractController
         $j1 = $partie->getJoueur1()->getId();
         $j2 = $partie->getJoueur2()->getId();
         $status = $partie->getPartieStatue();
-        if ($status == $j1) {
+        if ($status === $j1) {
             $partie->setPartieStatue($j2);
             $entityManager->flush();
             return $this->json('Joueur-suivant', 200);
-        } elseif ($status == $j2) {
+        } elseif ($status === $j2) {
             $partie->setPartieStatue($j1);
             $entityManager->flush();
             return $this->json('Joueur-suivant', 200);

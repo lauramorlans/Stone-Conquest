@@ -1,21 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Ici pour gérer les joueurs
+    <div class="admin-page">
+        <div class="row justify-content-between col-menu">
+            <div class="col">
+                <img src="{{ asset ('assets/images/logo.png') }}" class="logo">
+            </div>
+            <div class="col">
+                <ul id="menu-demo2">
+                    <li><a href="{{ path('user')}}">Mon compte <i class="fas fa-user fa-2x"></i></a>
+                        <ul>
+                            <li><a href="{{ path('change_email')}}">Changer email</a></li>
+                            <li><a href="{{ path('change_password')}}">Changer mot de passe</a></li>
+                            <li><a href="{{ path('administration')}}">Administration</a></li>
+                            <li><a href="{{ path('security_logout')}}">Deconnexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-    <table border="1px">
-        <tr><th>Pseudo</th><th>Nom</th><th>Mail</th><th>Role</th><th>Modifier</th></tr>
-    {% for joueur in user %}
-        <tr><td>{{ joueur.username }}</td><td>{{ joueur.fullname }}</td><td>{{ joueur.email }}</td><td>{% for role in joueur.roles %}
-                    {% if role == 'ROLE_ADMIN' %}
-                        Administrateur
-                    {% else %}
-                        Utilisateur
-                    {% endif %}
-            <td><a href="{{ path('editUsers', {'id': joueur.id })}}">Modifier</a></td>
+        <h1>Ici pour gerer les joueurs</h1>
+
+        <table>
+            <tr><th>Pseudo</th><th>Nom</th><th>Mail</th><th>Role</th><th>Modifier</th></tr>
+            {% for joueur in user %}
+                <tr><td>{{ joueur.username }}</td><td>{{ joueur.fullname }}</td><td>{{ joueur.email }}</td><td>{% for role in joueur.roles %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            Administrateur
+                        {% else %}
+                            Utilisateur
+                        {% endif %}
+                    <td><a href="{{ path('editUsers', {'id': joueur.id })}}">Modifier</a></td>
                     <br>{% endfor %}</td></tr>
-    {% endfor %}
-    </table>
-    <a href="{{ path('security_logout')}}">Se déconnecter</a>
+            {% endfor %}
+        </table>
+
+        <div class="row justify-content-between admin_links">
+            <div class="col-4 col-admin">
+                <a href="{{ path('user')}}" class="button-retour-admin">Retour</a>
+                <ul class="left">
+                    <li>
+                        <a href="{{ path('contact') }}">Nous contacter</a>
+                    </li>
+                    <li>
+                        <a href="">Mentions legales</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul class="regles">
+                    <li>
+                        <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <style>
         .selected {
             border: 2px solid red;
@@ -12,17 +14,31 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Partie entre {{ partie.joueur1.username }} et {{ partie.joueur2.username }}</h1>
+    <div class="plateau-page">
 
-    <div id="plateau">
-        {{ render(controller(
-            'App\\Controller\\JouerController::afficherPlateau',
-            { 'partie': partie.id }
-        )) }}
-    </div>
+        <div class="row justify-content-between plateau_links">
+            <div class="col-4 col-plateau">
+                <a href="{{ path('user')}}" class="button-retour-plateau">Retour</a>
+            </div>
+            <div class="col-8">
+                <ul class="title">
+                    <li>
+                        <h1>Partie entre {{ partie.joueur1.username }} et {{ partie.joueur2.username }}</h1>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-    <div id="attentejoueur" style="position:fixed; top:0; left:0; height: 100%; width: 100%; background-color: darkgray; opacity: 0.8;font-size: 60px; display:none">
-        Attente du joueur
+        <div id="plateau">
+            {{ render(controller(
+                'App\\Controller\\JouerController::afficherPlateau',
+                { 'partie': partie.id }
+            )) }}
+        </div>
+
+        <div id="attentejoueur" style="position:fixed; top:0; left:0; height: 100%; width: 100%; background-color: darkgray; opacity: 0.8;font-size: 60px; display:none">
+            Attente du joueur
+        </div>
     </div>
 {% endblock %}
 

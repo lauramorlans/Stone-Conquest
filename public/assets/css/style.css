@@ -1,23 +1,762 @@
 @font-face {
     font-family: "Stupid Meeting";
-    src: url('../font/Stupid\ Meeting_D.otf');
+    src: url('../font/StupidMeeting.otf');
 }
 
-body{
-    margin: 0;
-    background-image: url('../images/background.png');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+body, html{
+    height: 100%;
 }
 
 *{
-    font-family: "Stupid Meeting";
+    font-family: "Stupid Meeting", serif;
 }
 
 a:hover{
     text-decoration: none;
     color: #f3ac27;
 }
+
+/* ------ INDEX ACCUEIL------*/
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}
+
+.index-accueil{
+    margin: 0;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.index-accueil .connexion_index{
+    margin-right: 30px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.index-accueil .index_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+.index-accueil .col-acceuil{
+    margin-top: 50px;
+}
+
+a.button-jouer img.fleche2{
+    width: 50px;
+    padding-right: 10px;
+    position: relative;
+}
+
+a.button-jouer img.fleche2:hover{
+    width: 55px;
+    padding-right: 15px;
+}
+
+.index-accueil a.button-jouer:hover{
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+    color: #f3ac27;
+}
+
+
+/* ------ CONNEXION------*/
+.login-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-page .login_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-login{
+    margin-top: 0 !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-login:hover{
+    margin-top: 0 !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+
+/* ------ INSCRIPTION------*/
+.registration-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.registration-page .registration_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-registration{
+    margin-top: 0 !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-registration:hover{
+    margin-top: 0 !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+
+.registration-page .col-link{
+    margin-top: 50px;
+}
+
+.login {
+    text-align: center;
+}
+
+.login a{
+    color: #9b6a56;
+    margin-top: 20px;
+}
+
+
+/* ------ MOT DE PASSE OUBLIÉ------*/
+.forget_mdp_page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.forget_mdp_page .forget_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-forget{
+    margin-top: 0 !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-forget:hover{
+    margin-top: 0 !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+
+
+/* ------ USER------*/
+.index-user{
+    margin: 0;
+    background-image: url('../images/background_index.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.index-user .user_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-user{
+    margin-top: 30px !important;
+    padding: 30px 208px 30px 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-user:hover{
+    margin-top: 30px !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+.index-user a.button-jouer img.fleche2:hover{
+    width: 55px;
+    padding-right: 15px;
+}
+
+.index-user a.button-jouer:hover{
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+    padding: 30px 240px 30px 35px;
+    color: #f3ac27;
+}
+
+.index-user .regles{
+    margin-top: 205px !important;
+}
+
+
+/* ------ CHANGER EMAIL------*/
+.email-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.email-page .email_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-email{
+    margin-top: 140px !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-email:hover{
+    margin-top: 140px !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+.email-page .regles{
+    margin-top: 250px !important;
+}
+
+/* ------ CHANGER DE MOT DE PASSE ------*/
+.mdp-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mdp-page .mpd_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-mpd{
+    margin-top: 70px !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-mpd:hover{
+    margin-top: 70px !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+.mdp-page .regles{
+    margin-top: 180px !important;
+}
+
+
+/* ------ CONTACT ------*/
+.contact-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contact-page .contact_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-contact{
+    margin-top: 70px !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-contact:hover{
+    margin-top: 70px !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+.contact-page .regles{
+    margin-top: 180px !important;
+}
+
+.contact-page input.button-form{
+    margin-top: 10px !important;
+    border: #f3ac27 1px solid;
+    color: #f3ac27;
+    background-color: transparent;
+    font-family: "Stupid Meeting";
+}
+
+
+
+.contact-page input.button-form:hover{
+    margin-top: 10px !important;
+    border: #f3ac27 1px solid;
+    color: white;
+    background-color: #f3ac27;
+    font-family: "Stupid Meeting";
+}
+
+.body-form input[type=submit]{
+    display: block;
+    margin: 10px auto 0 auto
+}
+
+.contact-page textarea{
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.contact-page .navbar-toggler{
+    curso
+}
+
+
+/* ------ ADMINISTRATION ------*/
+.admin-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.admin-page .admin_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-admin{
+    margin-top: 70px !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-admin:hover{
+    margin-top: 70px !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+.admin-page .regles{
+    margin-top: 180px !important;
+}
+
+.admin-page h1{
+    color: #9b6a56;
+    text-align: center;
+}
+
+.admin-page table tbody tr th{
+    background-color: #f9eee5;
+    border: #9b6a56 1px solid;
+    font-weight: normal;
+    text-align: center;
+    color: #9b6a56;
+}
+
+.admin-page table tbody tr td{
+    font-family: Arial, Helvetica, sans-serif !important;
+    background-color: #f9eee5;
+    border: #9b6a56 1px solid;
+    font-weight: normal;
+    color: #9b6a56;
+    padding: 2px 10px;
+}
+
+.admin-page table{
+    margin: 0 auto;
+}
+
+.admin-page table a{
+    color: #f3ac27;
+}
+
+.admin-page table a:hover{
+    color: #9b6a56;
+}
+
+
+/* ------ CREER PARTIE ------*/
+.creerPartie-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.creerPartie-page .creerPartie_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+.creerPartie-page .col-creerPartie{
+    text-align: left;
+}
+
+a.button-retour-creerPartie{
+    margin-top: 70px !important;
+    padding: 30px 160px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+.creerPartie-page .regles{
+    margin-top: 180px !important;
+}
+
+.creerPartie-page form{
+    margin: 0 auto;
+    text-align: center;
+    color: #9b6a56;
+}
+
+.creerPartie-page input.button-form{
+    margin-top: 30px !important;
+    border: #f3ac27 1px solid;
+    color: #f3ac27;
+    background-color: transparent;
+    font-family: "Stupid Meeting";
+}
+
+.creerPartie-page input.button-form:hover{
+    margin-top: 30px !important;
+    border: #f3ac27 1px solid;
+    color: white;
+    background-color: #f3ac27;
+    font-family: "Stupid Meeting";
+}
+
+.creerPartie-page p {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.creerPartie-page select{
+    background-color: transparent;
+    color: #9b6a56;
+    border-radius: 0;
+    border: #9b6a56 1px solid;
+    margin-left: 2%;
+}
+
+/* ------ PLATEAU ------*/
+.plateau-page {
+    margin: 0;
+    background-image: url('../images/plateau_jeu.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+}
+
+.plateau-page #bloc-action{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.plateau-page button{
+    color: black;
+}
+
+.plateau-page button#action-prendre{
+    background-color: rgb(93, 172, 189) !important;
+}
+
+.plateau-page button#action-vendre{
+    background-color: rgb(184, 45, 62) !important;
+}
+
+.plateau-page button#action-troquer{
+    background-color: rgb(219, 212, 191) !important;
+}
+
+.jetons {
+    margin: 5px 0 10px 0;
+}
+
+.jetons img {
+    margin: 10px -15px 10px -15px;
+}
+
+.jetons-bonus img {
+    margin: 1px;
+}
+
+.main-J2{
+    margin-bottom: 30px;
+}
+
+.mammouth-J2 {
+    margin-left: 0;
+    margin-right: auto;
+    margin-bottom: 55px;
+}
+
+.terrain {
+    margin-bottom: 55px;
+}
+
+.mammouth-J1 {
+    margin-bottom: 30px;
+}
+
+.plateau-page .plateau_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+.plateau-page .col-plateau{
+    text-align: left;
+    padding: 0;
+}
+
+.plateau-page .title{
+    text-align: center;
+}
+
+a.button-retour-plateau{
+    padding: 15px 150px 15px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-plateau:hover{
+    padding: 15px 200px 15px 30px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+/* ------ LISTE PARTIE ------*/
+.listePartie-page{
+    margin: 0;
+    background-image: url('../images/background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.listePartie-page .liPartie_links{
+    width: 100%;
+    padding: 1px;
+    color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+
+a.button-retour-liPartie{
+    margin-top: 70px !important;
+    padding: 30px 220px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #9a9690;
+    font-size: 20px;
+    display: -webkit-inline-box;
+}
+
+a.button-retour-liPartie:hover{
+    margin-top: 70px !important;
+    padding: 30px 240px 30px 35px;
+    background-color: rgb(255, 255, 255);
+    color: #f3ac27;
+    font-size: 20px;
+    display: -webkit-inline-box;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.81);
+}
+
+.listePartie-page .regles{
+    margin-top: 180px !important;
+}
+
+.listePartie-page h1{
+    color: #9b6a56;
+    text-align: center;
+}
+
+.listePartie-page table tbody tr th{
+    background-color: #f9eee5;
+    border: #9b6a56 1px solid;
+    font-weight: normal;
+    text-align: center;
+    color: #9b6a56;
+}
+
+.listePartie-page table tbody tr td{
+    font-family: Arial, Helvetica, sans-serif !important;
+    background-color: #f9eee5;
+    border: #9b6a56 1px solid;
+    font-weight: normal;
+    color: #9b6a56;
+    padding: 2px 10px;
+}
+
+.listePartie-page table a{
+    color: #f3ac27;
+}
+
+.listePartie-page table a:hover{
+    color: #9b6a56;
+}
+
+.listePartie-page table{
+    margin: 0 auto;
+}
+
+
+/* ------ FOOTER ------*/
+.regles{
+    text-align: end;
+    font-size: 25px;
+    padding-right: 40px;
+    margin-top: 120px
+}
+
+
 
 #animation {
     position: fixed;
@@ -26,29 +765,10 @@ a:hover{
     width: 100%;
 }
 
-.index{
-    background-image: url("../images/background_index.png");
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-}
-
-.index_links{
-    padding-top: 410px;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
-    width: 100%;
-}
-
-.connexion_index{
-    margin-right: 30px;
-    text-align: center;
-    margin-top: 30px;
-}
-
 img.logo{
-    width: 100px;
-    margin: 20px 40px;
-}
+     width: 100px;
+     margin: 20px 40px;
+ }
 
 .row{
     margin: 0 !important;
@@ -59,10 +779,12 @@ div.col-4{
 }
 
 
+
+
+/* ------ FORMULAIRE ------*/
 .body-form{
     background-color: #f9eee5;
     width: 50%;
-    height: 190%;
     padding: 60px 20px;
     display: block;
     margin: auto;
@@ -96,6 +818,13 @@ button.button-form{
     background-color: transparent;
 }
 
+button.button-form:hover{
+    margin-top: 50px !important;
+    border: #f3ac27 1px solid;
+    color: white;
+    background-color: #f3ac27;
+}
+
 a.button-retour{
     margin-top: 20px;
     padding: 30px 30px 30px;
@@ -111,42 +840,26 @@ a.button-retour img.fleche{
 
 a.button-jouer{
     margin-top: 20px;
-    padding: 30px 0 30px 10px;
+    padding: 30px 200px 30px 10px;
     background-color: white;
     color: #9a9690;
     font-size: 20px;
-}
-
-a.button-jouer img.fleche{
-    padding-left: 164px;
-    padding-top: 2px;
-    height: 87px;
-}
-
-a.button-jouer img.fleche2{
-    width: 50px;
-    padding-right: 10px;
-}
-
-a.button-retour-login{
-    margin-top: 20px;
-    padding: 30px 235px 30px 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    color: #9a9690;
-    font-size: 20px;
-    display: -webkit-inline-box;
 }
 
 a{
     color: white;
 }
 
+
+
 ul.right{
     list-style-type: none;
-    text-align: end;
-    font-size: 25px;
-    padding-top: 20px;
-    padding-right: 40px;
+    display: inline-flex;
+    padding: 0;
+}
+
+ul.right li{
+    margin: 30px 25px 0;
 }
 
 ul.left{
@@ -159,28 +872,96 @@ ul.left li{
     margin: 30px 25px 0;
 }
 
-ul.right-login{
-    list-style-type: none;
-    text-align: end;
-    font-size: 25px;
-    padding-top: 20px;
-    padding-right: 40px;
-    margin-top: 120px
-}
-
-.login {
-    text-align: center;
-}
-
-.login a{
-    color: #9b6a56;
-    margin-top: 20px;
-}
-
 input{
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .inscription_mdp{
     bottom: -50px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+i.fa-user{
+    color: #9a9690;;
+}
+
+i.fa-user:hover{
+    color: #f3ac27;
+}
+
+.fa-1x {
+    font-size: 1.5rem;
+}
+
+
+#menu-demo2, #menu-demo2 ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+    text-align:right;
+}
+#menu-demo2 li{
+    display:inline-block;
+    position:relative;
+    text-align: center;
+}
+#menu-demo2 ul li{
+    display:inherit;
+    border-radius:0;
+}
+#menu-demo2 ul li:hover{
+    border-radius:0;
+}
+
+#menu-demo2 ul{
+    position:absolute;
+    z-index: 1000;
+    max-height:0;
+    left: 0;
+    right: 0;
+    overflow:hidden;
+    -moz-transition: .8s all .3s;
+    -webkit-transition: .8s all .3s;
+    transition: .8s all .3s;
+}
+#menu-demo2 li:hover ul{
+    max-height:15em;
+}
+/* background des liens menus */
+#menu-demo2 li{
+    background-color: rgba(255, 255, 255, 0.8);
+}
+/* background des liens sous menus */
+#menu-demo2 li{
+    background-color: rgba(255, 255, 255, 0.8);
+}
+/* background des liens menus et sous menus au survol */
+#menu-demo2 li:hover{
+    background-color: rgba(255, 255, 255, 0.47);
+}
+/* les a href */
+#menu-demo2 a{
+    text-decoration:none;
+    display:block;
+    padding:15px 15px 15px 150px;
+    color: #9a9690;
+}
+#menu-demo2 ul a{
+    padding:8px 0;
+}
+
+#menu-demo2 li:hover li a{
+    color: #9a9690;
+    text-transform:inherit;
+}
+#menu-demo2 li:hover a, #menu-demo2 li li:hover a{
+    color: #f3ac27;
+}
+
+.col{
+    padding: 0;
 }

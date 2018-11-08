@@ -1,38 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="index">
-        <div class="float-right connexion_index">
-            <a href="{{ path('security_login')}}"> <i class="fas fa-user fa-2x"></i><br>Connexion</a>
-        </div>
+    <div class="index-accueil">
+
+        <video autoplay muted id="myVideo">
+            <source src="{{ asset ('assets/video/acceuil_animation.mp4') }}" type="video/mp4">
+        </video>
+
+        <ul id="menu-demo2">
+            <li><a href="{{ path('security_login')}}">Connexion <i class="fas fa-user fa-2x"></i></a></li>
+        </ul>
+
 
         <div class="row justify-content-between index_links">
-            <div class="col-4">
-                <a href="" class="button-jouer"><img src="{{ asset ('assets/images/fleche-orange2.png') }}" class="fleche2"> Jouer <img src="{{ asset ('assets/images/fleche-orange.png') }}" class="fleche"></a>
-                <a href="{{ path('index')}}" class="button-retour-login">Retour</a>
+            <div class="col-4 col-acceuil">
+                <a href="{{ path('security_login')}}" class="button-jouer"><img src="{{ asset ('assets/images/fleche-orange2.png') }}" class="fleche2"> Jouer </a>
                 <ul class="left">
                     <li>
-                        <a href="">Nous contacter</a>
+                        <a href="{{ path('contact') }}">Nous contacter</a>
                     </li>
                     <li>
-                        <a href="">Mentions legals</a>
+                        <a href="">Mentions legales</a>
                     </li>
                 </ul>
             </div>
             <div class="col-4">
-                <ul class="right-login">
+                <ul class="regles">
                     <li>
-                        <a href="">Mon compte</a>
-                    </li>
-                    <li>
-                        <a href="">Regles</a>
-                    </li>
-                    <li>
-                        <a href="">Reglages</a>
+                        <a href="{{ asset ('assets/images/regles-stone-conquest.pdf') }}">Regles</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 {% endblock %}
-
